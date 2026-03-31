@@ -1,29 +1,45 @@
-# Build outputs
+# ── Source code (never publish — commercial product) ──────────────────
+ui/
+core/
+utils/
+assets/
+hooks/
+tests/
+main.py
+build.spec
+build_installer.bat
+requirements.txt
+create_test_form.py
+
+# ── Claude settings ───────────────────────────────────────────────────
+.claude/
+
+# ── Build outputs ─────────────────────────────────────────────────────
 dist/
 build/
 *.spec.bak
 
-# Python cache
+# ── Python cache ──────────────────────────────────────────────────────
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# PyInstaller
+# ── PyInstaller ───────────────────────────────────────────────────────
 *.manifest
 
-# User config / license (never commit personal data)
+# ── User config / license ─────────────────────────────────────────────
 ~/.pdf_editor/
 
-# Inno Setup output
+# ── Inno Setup output ─────────────────────────────────────────────────
 installer/*.exe
 installer/*.tmp
 
-# IDE
+# ── IDE ───────────────────────────────────────────────────────────────
 .vscode/
 .idea/
 *.swp
 
-# OS
+# ── OS ────────────────────────────────────────────────────────────────
 Thumbs.db
 .DS_Store
