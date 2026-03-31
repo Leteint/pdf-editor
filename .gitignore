@@ -44,6 +44,8 @@ installer/*.tmp
 Thumbs.db
 .DS_Store
 
-# ── Test / sample PDF files ───────────────────────────────────────────
+# ── Test / sample PDF files & debug outputs ──────────────────────────
 *.pdf
 *.PDF
+debug_*.png
+debug_*.jpg
