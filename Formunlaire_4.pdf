@@ -1,0 +1,63 @@
+%PDF-1.3
+%¿÷¢þ
+1 0 obj
+<< /AcroForm << /DR << /Font << /Helv 3 0 R >> >> /Fields [ 4 0 R 5 0 R ] /NeedAppearances true >> /Metadata 6 0 R /Pages 7 0 R /Type /Catalog >>
+endobj
+2 0 obj
+<< /Producer (pikepdf 10.5.0) >>
+endobj
+3 0 obj
+<< /BaseFont /Helvetica /Encoding /WinAnsiEncoding /Subtype /Type1 /Type /Font >>
+endobj
+4 0 obj
+<< /DA (/Helv 12 Tf 0 g) /FT /Btn /Ff 32768 /Kids [ 8 0 R 9 0 R 10 0 R ] /T (BTN_N) /V /2 >>
+endobj
+5 0 obj
+<< /AS /Yes /DA (/Helv 12 Tf 0 g) /FT /Btn /Rect [ 270.52267 721.285841 359.697733 746.778272 ] /Subtype /Widget /T (CHK_N) /Type /Annot /V /Yes >>
+endobj
+6 0 obj
+<< /Subtype /XML /Type /Metadata /Length 514 >>
+stream
+<?xpacket begin="ï»¿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="pikepdf">
+ <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <rdf:Description rdf:about=""><formdata>{"BTN_N": "2", "CHK_N": true}</formdata><xmp:MetadataDate xmlns:xmp="http://ns.adobe.com/xap/1.0/">2026-03-17T08:14:46.866515+00:00</xmp:MetadataDate><pdf:Producer xmlns:pdf="http://ns.adobe.com/pdf/1.3/">pikepdf 10.5.0</pdf:Producer></rdf:Description></rdf:RDF>
+</x:xmpmeta>
+
+<?xpacket end="w"?>
+
+endstream
+endobj
+7 0 obj
+<< /Count 1 /Kids [ 11 0 R ] /Type /Pages >>
+endobj
+8 0 obj
+<< /AS /Off /Parent 4 0 R /Rect [ 269.7733 763.273375 292.491709 788.016028 ] /Subtype /Widget /TU (1) /Type /Annot >>
+endobj
+9 0 obj
+<< /AS /Off /Parent 4 0 R /Rect [ 296.50084 763.273375 319.219249 788.016028 ] /Subtype /Widget /TU (2) /Type /Annot >>
+endobj
+10 0 obj
+<< /AS /Off /Parent 4 0 R /Rect [ 323.22838 763.273375 345.946788 788.016028 ] /Subtype /Widget /TU (3) /Type /Annot >>
+endobj
+11 0 obj
+<< /Annots [ 8 0 R 9 0 R 10 0 R 5 0 R ] /MediaBox [ 0 0 595 842 ] /Parent 7 0 R /Resources << >> /Type /Page >>
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000015 00000 n 
+0000000176 00000 n 
+0000000224 00000 n 
+0000000321 00000 n 
+0000000429 00000 n 
+0000000592 00000 n 
+0000001187 00000 n 
+0000001247 00000 n 
+0000001381 00000 n 
+0000001516 00000 n 
+0000001652 00000 n 
+trailer << /Info 2 0 R /Root 1 0 R /Size 12 /ID [<871bf886d85fcacfe4946464041ecaf7><fb1ae1dc6e770e4c9fd851f7061b2e75>] >>
+startxref
+1780
+%%EOF

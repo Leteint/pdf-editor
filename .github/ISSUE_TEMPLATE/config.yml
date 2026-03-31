@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussion générale
+    url: https://github.com/Leteint/pdf-editor/discussions
+    about: Questions, idées générales, partage d'expérience
+  - name: 🛒 Support achat / licence
+    url: https://pdfeditor.lemonsqueezy.com
+    about: Problème de paiement, clé de licence, remboursement

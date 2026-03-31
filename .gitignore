@@ -1,0 +1,29 @@
+# Build outputs
+dist/
+build/
+*.spec.bak
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# PyInstaller
+*.manifest
+
+# User config / license (never commit personal data)
+~/.pdf_editor/
+
+# Inno Setup output
+installer/*.exe
+installer/*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store

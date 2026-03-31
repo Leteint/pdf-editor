@@ -1,0 +1,59 @@
+name: 💡 Demande d'évolution
+description: Proposer une nouvelle fonctionnalité ou amélioration
+title: "[FEATURE] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Une idée pour améliorer PDF Editor ? Décrivez-la ci-dessous. Les demandes les plus votées sont priorisées dans la roadmap.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Quel problème cela résout-il ?
+      description: Décrivez la situation actuelle et ce qui vous manque
+      placeholder: Actuellement, pour faire X je dois faire Y, ce qui est fastidieux…
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution souhaitée
+      description: Décrivez la fonctionnalité que vous aimeriez voir
+      placeholder: Il serait utile de pouvoir…
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorité ressentie
+      options:
+        - 🔴 Critique — bloque mon travail quotidien
+        - 🟠 Importante — m'aiderait beaucoup
+        - 🟡 Utile — nice to have
+        - 🟢 Mineure — petite amélioration
+    validations:
+      required: true
+
+  - type: dropdown
+    id: usecase
+    attributes:
+      label: Contexte d'utilisation
+      options:
+        - Usage professionnel (entreprise)
+        - Usage indépendant / freelance
+        - Usage personnel
+        - Intégration N8N / automatisation
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives envisagées
+      description: Avez-vous trouvé un contournement ? D'autres outils le font-ils ?
+    validations:
+      required: false
