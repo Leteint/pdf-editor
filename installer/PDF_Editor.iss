@@ -11,9 +11,9 @@
 ; ============================================================================
 
 #define AppName      "PDF Editor"
-#define AppVersion   "1.0.0"
-#define AppPublisher "OpenPDFEditor"
-#define AppURL       "https://github.com/OpenPDFEditor/pdf-editor"
+#define AppVersion   "1.4.2"
+#define AppPublisher "Leteint"
+#define AppURL       "https://github.com/Leteint/pdf-editor"
 #define AppExeName   "PDFEditor.exe"
 #define DistDir      "..\dist\PDFEditor"
 
