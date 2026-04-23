@@ -17,11 +17,11 @@
 #define AppExeName   "PDFEditor.exe"
 #define DistDir      "..\dist\PDFEditor"
 
-; Tesseract installer — mirrored on our GitHub release for URL stability.
+; Tesseract installer — mirrored on the permanent "deps" release (never delete it).
 ; Original source: https://github.com/UB-Mannheim/tesseract/releases
-; To update: download new version, upload to Leteint/pdf-editor release, update defines below.
+; To update: download new version, upload to Leteint/pdf-editor "deps" release, update TesseractVersion.
 #define TesseractVersion "5.4.0.20240606"
-#define TesseractURL     "https://github.com/Leteint/pdf-editor/releases/download/v1.4.2/tesseract-ocr-w64-setup-" + TesseractVersion + ".exe"
+#define TesseractURL     "https://github.com/Leteint/pdf-editor/releases/download/deps/tesseract-ocr-w64-setup-" + TesseractVersion + ".exe"
 
 ; Tessdata-fast models (~5–10 MB each, good speed/accuracy trade-off)
 ; Source: https://github.com/tesseract-ocr/tessdata_fast
