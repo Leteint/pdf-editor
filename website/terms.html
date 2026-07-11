@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditions Générales d'Utilisation — PDF Editor</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117; --card: #232840; --border: #2e3450;
+    --red: #e84444; --text: #e8eaf0; --muted: #8892b0;
+    --blue: #64b5f6; --green: #4caf78;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.7; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,17,23,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.45rem; }
+  .nav-logo img { height: 26px; width: auto; display: block; }
+  .nav-logo:hover { color: var(--blue); text-decoration: none; }
+  .nav-back { color: var(--muted); font-size: 0.9rem; }
+  .nav-back:hover { color: var(--text); }
+
+  .page-wrap { max-width: 820px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+  .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .page-header h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .page-header .meta { color: var(--muted); font-size: 0.875rem; }
+
+  h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 2.5rem 0 0.75rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+  h2:first-of-type { border-top: none; margin-top: 0; }
+  p { color: var(--muted); margin-bottom: 0.9rem; }
+  ul { color: var(--muted); padding-left: 1.5rem; margin-bottom: 0.9rem; }
+  ul li { margin-bottom: 0.4rem; }
+  strong { color: var(--text); }
+
+  .highlight-box {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+  }
+  .highlight-box p { margin-bottom: 0; }
+
+  footer {
+    padding: 2rem; text-align: center; font-size: 0.85rem;
+    color: var(--muted); border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--text); }
+  .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="PDF Editor logo">PDF Editor</a>
+  <a href="index.html" class="nav-back">← Retour au site</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <h1>Conditions Générales d'Utilisation</h1>
+    <p class="meta">Dernière mise à jour : 6 avril 2026 · Langue officielle : Français</p>
+  </div>
+
+  <div class="highlight-box">
+    <p>En achetant ou en utilisant PDF Editor, vous acceptez les présentes Conditions Générales d'Utilisation dans leur intégralité. Veuillez les lire attentivement avant tout achat.</p>
+  </div>
+
+  <h2>1. Éditeur du logiciel</h2>
+  <p>PDF Editor est un logiciel développé et distribué par <strong>Jean-Baptiste Leteinturier</strong>, développeur indépendant, France. Les paiements sont traités par <strong>Lemon Squeezy</strong> (Merchant of Record), LLC., qui est légalement responsable de la transaction commerciale.</p>
+  <p>Contact : via <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener">GitHub Issues</a></p>
+
+  <h2>2. Description du produit</h2>
+  <p>PDF Editor est une application desktop native pour <strong>Windows 10 et 11</strong> permettant d'effectuer les opérations suivantes sur des fichiers PDF :</p>
+  <ul>
+    <li>Fusion, division et réorganisation de pages</li>
+    <li>Édition de texte</li>
+    <li>Remplissage et export de formulaires en JSON</li>
+    <li>Reconnaissance optique de caractères (OCR)</li>
+    <li>Signature numérique avec certificat</li>
+    <li>Protection par mot de passe et chiffrement</li>
+    <li>Ajout de tampons, filigranes et en-têtes</li>
+    <li>Intégration au menu contextuel Windows (clic droit)</li>
+  </ul>
+  <p>Le logiciel fonctionne <strong>entièrement en local</strong> sur l'ordinateur de l'utilisateur. Aucun fichier PDF n'est transmis à un serveur distant.</p>
+
+  <h2>3. Licence d'utilisation</h2>
+  <p>L'achat de PDF Editor vous confère une <strong>licence d'utilisation personnelle et/ou commerciale non exclusive</strong>, limitée au nombre de postes correspondant à votre formule :</p>
+  <ul>
+    <li><strong>Solo</strong> : 1 poste, 2 activations simultanées autorisées</li>
+    <li><strong>Team</strong> : 5 postes, 5 activations simultanées</li>
+    <li><strong>Business</strong> : 20 postes, 20 activations simultanées</li>
+    <li><strong>Enterprise</strong> : postes illimités (abonnement annuel)</li>
+  </ul>
+  <p>La licence est <strong>perpétuelle</strong> pour les plans Solo, Team et Business (achat unique). Le plan Enterprise est soumis à un renouvellement annuel — en cas de non-renouvellement, la licence devient inactive.</p>
+
+  <h2>4. Ce que vous êtes autorisé à faire</h2>
+  <ul>
+    <li>Installer et utiliser le logiciel sur le nombre de postes prévu par votre licence</li>
+    <li>Utiliser le logiciel à des fins personnelles et commerciales</li>
+    <li>Réinstaller le logiciel sur un nouvel ordinateur après désactivation sur l'ancien</li>
+    <li>Bénéficier des mises à jour incluses dans votre version majeure</li>
+  </ul>
+
+  <h2>5. Ce qui est interdit</h2>
+  <ul>
+    <li>Redistribuer, revendre ou partager la clé de licence</li>
+    <li>Décompiler, désassembler ou tenter d'accéder au code source du logiciel</li>
+    <li>Utiliser le logiciel sur plus de postes que prévu par la licence</li>
+    <li>Supprimer ou contourner le système de vérification de licence</li>
+    <li>Utiliser le logiciel à des fins illégales ou frauduleuses</li>
+  </ul>
+
+  <h2>6. Mises à jour</h2>
+  <p>Toutes les mises à jour de la <strong>version majeure</strong> achetée sont incluses gratuitement. Si une version majeure supérieure est publiée à un tarif différent, les clients existants bénéficieront d'une remise fidélité substantielle. Aucune mise à jour ne sera jamais imposée — vous pouvez continuer à utiliser la version que vous avez achetée indéfiniment.</p>
+
+  <h2>7. Validation de licence</h2>
+  <p>Une connexion internet est requise lors de la <strong>première activation</strong> de la licence, puis périodiquement (toutes les 7 jours) pour validation. Entre deux validations, le logiciel fonctionne entièrement hors ligne. Les données transmises lors de la validation se limitent à la clé de licence et à un identifiant technique de la machine (non personnel).</p>
+
+  <h2>8. Limitation de responsabilité</h2>
+  <p>PDF Editor est fourni <strong>"en l'état"</strong>. Dans les limites permises par la loi applicable :</p>
+  <ul>
+    <li>Nous ne garantissons pas que le logiciel sera exempt de bugs ou d'interruptions</li>
+    <li>Nous ne saurions être tenus responsables de pertes de données, de dommages indirects ou de perte de revenus résultant de l'utilisation du logiciel</li>
+    <li>Il est de votre responsabilité de sauvegarder vos fichiers PDF originaux avant toute manipulation</li>
+  </ul>
+  <p>Notre responsabilité maximale est en tout état de cause limitée au montant payé pour la licence.</p>
+
+  <h2>9. Résiliation</h2>
+  <p>Nous nous réservons le droit de révoquer une licence en cas de violation des présentes CGU (notamment : partage de clé, décompilation, fraude). Dans ce cas, aucun remboursement ne sera accordé.</p>
+
+  <h2>10. Droit applicable</h2>
+  <p>Les présentes CGU sont régies par le <strong>droit français</strong>. En cas de litige, les tribunaux français seront compétents. Si vous êtes un consommateur dans un autre pays de l'UE, vous bénéficiez des protections prévues par la législation de votre pays de résidence.</p>
+
+  <h2>11. Modifications</h2>
+  <p>Ces CGU peuvent être modifiées à tout moment. Les clients existants seront informés de tout changement substantiel. La version en vigueur au moment de l'achat continue de s'appliquer à cet achat.</p>
+
+  <h2>12. Contact</h2>
+  <p>Pour toute question relative à ces CGU : <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener">GitHub Issues</a></p>
+
+</div>
+
+<footer>
+  <div>© 2026 PDF Editor. Tous droits réservés.</div>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="terms.html">CGU</a>
+    <a href="privacy.html">Confidentialité</a>
+    <a href="refund.html">Remboursement</a>
+    <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>

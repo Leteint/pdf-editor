@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Editor — Screenshots Gallery</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --card: #232840;
+    --border: #2e3450;
+    --red: #e84444;
+    --text: #e8eaf0;
+    --muted: #8892b0;
+    --blue: #64b5f6;
+    --green: #4caf78;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,17,23,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .nav-logo img { height: 28px; width: auto; display: block; }
+  .nav-logo:hover { text-decoration: none; color: var(--blue); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); text-decoration: none; }
+  .nav-links a.active { color: var(--blue); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .lang-switcher { display: flex; align-items: center; gap: 0.25rem; }
+
+  .lang-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 3px 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: border-color 0.2s, background 0.2s;
+    line-height: 1;
+    color: var(--text);
+  }
+  .lang-btn:hover { border-color: var(--border); background: var(--card); }
+  .lang-btn.active { border-color: var(--blue); background: rgba(100,181,246,0.1); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: filter 0.2s, transform 0.1s;
+    text-decoration: none;
+  }
+  .btn:hover { filter: brightness(1.1); text-decoration: none; }
+  .btn-primary { background: var(--red); color: #fff; }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .page-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .page-header p {
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* SECTION LABEL */
+  .gallery-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 1rem;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label .icon { font-size: 1.4rem; }
+  .section-label h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .section-label .badge {
+    background: rgba(232, 68, 68, 0.15);
+    color: var(--red);
+    border: 1px solid rgba(232, 68, 68, 0.3);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* GALLERY GRID */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+  /* GALLERY ITEM */
+  .gallery-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .gallery-item:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  .gallery-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: none;        /* hidden until image actually loads */
+    background: #1a1e2e;
+  }
+  .gallery-thumb.loaded { display: block; }
+
+  /* Placeholder shown when image is missing or loading */
+  .gallery-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #1a1e2e;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  .gallery-placeholder.hidden { display: none; }
+  .gallery-placeholder .ph-icon { font-size: 2rem; opacity: 0.4; }
+  .gallery-placeholder .ph-text { opacity: 0.5; font-style: italic; }
+
+  .gallery-caption {
+    padding: 0.6rem 0.85rem 0.75rem;
+  }
+  .gallery-caption strong {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+  .gallery-caption span {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .lightbox.open { display: flex; }
+
+  .lightbox-inner {
+    position: relative;
+    max-width: min(1100px, 100%);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    object-fit: contain;
+  }
+
+  .lightbox-caption {
+    color: var(--text);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .lightbox-caption strong { color: var(--blue); margin-right: 0.4rem; }
+
+  .lightbox-close {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 10;
+  }
+  .lightbox-close:hover { background: var(--red); border-color: var(--red); }
+
+  .lightbox-nav {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .lightbox-nav button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .lightbox-nav button:hover { background: var(--border); border-color: var(--blue); }
+  .lightbox-counter {
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 3rem;
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--text); }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .footer-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    nav { gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="PDF Editor logo">PDF Editor</a>
+  <ul class="nav-links">
+    <li><a href="index.html#features" data-i18n="nav_features">Features</a></li>
+    <li><a href="index.html#pricing" data-i18n="nav_pricing">Pricing</a></li>
+    <li><a href="gallery.html" class="active" data-i18n="nav_gallery">Gallery</a></li>
+    <li><a href="index.html#faq" data-i18n="nav_faq">FAQ</a></li>
+    <li><a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener" data-i18n="nav_support">Support</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+      <button class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+      <button class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+      <button class="lang-btn" data-lang="pt" aria-label="Português">🇵🇹</button>
+      <button class="lang-btn" data-lang="ru" aria-label="Русский">🇷🇺</button>
+    </div>
+    <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="nav_buy">Buy — from €45</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1 data-i18n="gallery_h">PDF Editor in action</h1>
+  <p data-i18n="gallery_sub">A visual tour of every feature — click any screenshot to enlarge.</p>
+</div>
+
+<!-- SECTION 1: MAIN INTERFACE -->
+<section class="gallery-section">
+  <div class="section-label">
+    <span class="icon">🖥️</span>
+    <h2 data-i18n="gal_s1_title">Main interface</h2>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item" data-img="main_window.png" data-title-key="gal_s1_i1_title" data-desc-key="gal_s1_i1_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s1_i1_title">Main window — PDF open</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s1_i1_title">Main window — PDF open</strong>
+        <span data-i18n="gal_s1_i1_desc">Overview of the application with a document loaded.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="main_toolbar.png" data-title-key="gal_s1_i2_title" data-desc-key="gal_s1_i2_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s1_i2_title">Toolbar & navigation</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s1_i2_title">Toolbar & navigation</strong>
+        <span data-i18n="gal_s1_i2_desc">Close-up of the toolbar with all main actions visible.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="main_pages.png" data-title-key="gal_s1_i3_title" data-desc-key="gal_s1_i3_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s1_i3_title">Page panel</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s1_i3_title">Page panel</strong>
+        <span data-i18n="gal_s1_i3_desc">Thumbnail panel showing all pages of a multi-page document.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 2: MERGE & SPLIT -->
+<section class="gallery-section">
+  <div class="section-label">
+    <span class="icon">🔗</span>
+    <h2 data-i18n="gal_s2_title">Merge &amp; Split</h2>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item" data-img="merge_contextmenu.png" data-title-key="gal_s2_i1_title" data-desc-key="gal_s2_i1_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s2_i1_title">Right-click context menu</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s2_i1_title">Right-click context menu</strong>
+        <span data-i18n="gal_s2_i1_desc">"Combine in PDF Editor" entry visible in Windows Explorer.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="merge_organize.png" data-title-key="gal_s2_i2_title" data-desc-key="gal_s2_i2_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s2_i2_title">Organize dialog — drag & drop</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s2_i2_title">Organize dialog — drag &amp; drop</strong>
+        <span data-i18n="gal_s2_i2_desc">Page thumbnails loaded from multiple PDFs, ready to reorder.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="merge_result.png" data-title-key="gal_s2_i3_title" data-desc-key="gal_s2_i3_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s2_i3_title">Merged result</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s2_i3_title">Merged result</strong>
+        <span data-i18n="gal_s2_i3_desc">Final merged PDF open in the viewer after combining files.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 3: PAGE ORGANIZATION -->
+<section class="gallery-section">
+  <div class="section-label">
+    <span class="icon">📑</span>
+    <h2 data-i18n="gal_s3_title">Page organization</h2>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item" data-img="pages_reorder.png" data-title-key="gal_s3_i1_title" data-desc-key="gal_s3_i1_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s3_i1_title">Reorder pages</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s3_i1_title">Reorder pages</strong>
+        <span data-i18n="gal_s3_i1_desc">Drag &amp; drop to change the order of pages visually.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="pages_rotate.png" data-title-key="gal_s3_i2_title" data-desc-key="gal_s3_i2_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s3_i2_title">Rotate & delete</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s3_i2_title">Rotate &amp; delete</strong>
+        <span data-i18n="gal_s3_i2_desc">Select one or multiple pages to rotate or remove them.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="pages_insert.png" data-title-key="gal_s3_i3_title" data-desc-key="gal_s3_i3_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s3_i3_title">Insert from another PDF</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s3_i3_title">Insert from another PDF</strong>
+        <span data-i18n="gal_s3_i3_desc">Add pages from an external document into the current one.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 4: FORMS + JSON (EXCLUSIVE) -->
+<section class="gallery-section">
+  <div class="section-label">
+    <span class="icon">📋</span>
+    <h2 data-i18n="gal_s4_title">Forms + JSON Export</h2>
+    <span class="badge" data-i18n="exclusive">EXCLUSIVE</span>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item" data-img="forms_fill.png" data-title-key="gal_s4_i1_title" data-desc-key="gal_s4_i1_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s4_i1_title">Filling a PDF form</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s4_i1_title">Filling a PDF form</strong>
+        <span data-i18n="gal_s4_i1_desc">Interactive form fields — type directly in the PDF.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="forms_json.png" data-title-key="gal_s4_i2_title" data-desc-key="gal_s4_i2_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s4_i2_title">JSON export output</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s4_i2_title">JSON export output</strong>
+        <span data-i18n="gal_s4_i2_desc">Structured JSON file generated from the form data in one click.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="forms_n8n.png" data-title-key="gal_s4_i3_title" data-desc-key="gal_s4_i3_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s4_i3_title">N8N / automation workflow</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s4_i3_title">N8N / automation workflow</strong>
+        <span data-i18n="gal_s4_i3_desc">JSON data flowing into an N8N workflow via webhook.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 5: DIGITAL SIGNATURES -->
+<section class="gallery-section">
+  <div class="section-label">
+    <span class="icon">✍️</span>
+    <h2 data-i18n="gal_s5_title">Digital signatures</h2>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item" data-img="sign_certificate.png" data-title-key="gal_s5_i1_title" data-desc-key="gal_s5_i1_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s5_i1_title">Load certificate</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s5_i1_title">Load certificate</strong>
+        <span data-i18n="gal_s5_i1_desc">Import a .p12 / .pfx certificate to sign documents.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="sign_place.png" data-title-key="gal_s5_i2_title" data-desc-key="gal_s5_i2_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s5_i2_title">Place signature</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s5_i2_title">Place signature</strong>
+        <span data-i18n="gal_s5_i2_desc">Position the signature block on any page of the document.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="sign_result.png" data-title-key="gal_s5_i3_title" data-desc-key="gal_s5_i3_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s5_i3_title">Signed PDF</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s5_i3_title">Signed PDF</strong>
+        <span data-i18n="gal_s5_i3_desc">Document signed with timestamp and certificate details visible.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 6: TEXT EDITING & OCR -->
+<section class="gallery-section">
+  <div class="section-label">
+    <span class="icon">✏️</span>
+    <h2 data-i18n="gal_s6_title">Text editing &amp; OCR</h2>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item" data-img="text_edit.png" data-title-key="gal_s6_i1_title" data-desc-key="gal_s6_i1_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s6_i1_title">Inline text editing</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s6_i1_title">Inline text editing</strong>
+        <span data-i18n="gal_s6_i1_desc">Click any text block to edit it directly in the PDF.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="ocr_result.png" data-title-key="gal_s6_i2_title" data-desc-key="gal_s6_i2_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s6_i2_title">OCR — scanned document</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s6_i2_title">OCR — scanned document</strong>
+        <span data-i18n="gal_s6_i2_desc">Before / after OCR: a scanned image converted to searchable text.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="stamps.png" data-title-key="gal_s6_i3_title" data-desc-key="gal_s6_i3_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s6_i3_title">Stamps &amp; watermarks</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s6_i3_title">Stamps &amp; watermarks</strong>
+        <span data-i18n="gal_s6_i3_desc">Add a custom stamp or watermark across all pages.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 7: WINDOWS INTEGRATION -->
+<section class="gallery-section" style="margin-bottom: 3rem;">
+  <div class="section-label">
+    <span class="icon">🖱️</span>
+    <h2 data-i18n="gal_s7_title">Windows integration</h2>
+  </div>
+  <div class="gallery-grid">
+
+    <div class="gallery-item" data-img="windows_convert.png" data-title-key="gal_s7_i1_title" data-desc-key="gal_s7_i1_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s7_i1_title">Convert image to PDF</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s7_i1_title">Convert image to PDF</strong>
+        <span data-i18n="gal_s7_i1_desc">Right-click on a .jpg or .png → "Convert to PDF" in Explorer.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="windows_password.png" data-title-key="gal_s7_i2_title" data-desc-key="gal_s7_i2_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s7_i2_title">Password protection</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s7_i2_title">Password protection</strong>
+        <span data-i18n="gal_s7_i2_desc">Encrypt a PDF with a strong password — restrict print / copy / edit.</span>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-img="windows_settings.png" data-title-key="gal_s7_i3_title" data-desc-key="gal_s7_i3_desc">
+      <img class="gallery-thumb" src="" alt="">
+      <div class="gallery-placeholder">
+        <span class="ph-icon">📷</span>
+        <span class="ph-text" data-i18n="gal_s7_i3_title">Settings &amp; license</span>
+      </div>
+      <div class="gallery-caption">
+        <strong data-i18n="gal_s7_i3_title">Settings &amp; license</strong>
+        <span data-i18n="gal_s7_i3_desc">License manager with activation status and machine info.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lb-close" aria-label="Close">✕</button>
+    <img class="lightbox-img" id="lb-img" src="" alt="">
+    <div class="lightbox-caption" id="lb-caption"></div>
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <div class="lightbox-nav">
+        <button id="lb-prev">← Prev</button>
+        <button id="lb-next">Next →</button>
+      </div>
+      <span class="lightbox-counter" id="lb-counter"></span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 PDF Editor. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener" data-i18n="footer_support">Support &amp; Issues</a>
+      <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" data-i18n="footer_buy">Buy</a>
+      <a href="terms.html" data-i18n="footer_terms">Terms of Service</a>
+      <a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
+      <a href="refund.html" data-i18n="footer_refund">Refund Policy</a>
+    </div>
+    <span><span data-i18n="footer_payment">Payments by</span> <a href="https://lemonsqueezy.com" target="_blank" rel="noopener">Lemon Squeezy</a></span>
+  </div>
+</footer>
+
+<script>
+// ── i18n ────────────────────────────────────────────────────────────────────
+const LANGS = {
+  fr: {
+    nav_features: "Fonctionnalités", nav_pricing: "Tarifs", nav_gallery: "Galerie",
+    nav_faq: "FAQ", nav_support: "Support", nav_buy: "Acheter — dès 45€",
+    footer_support: "Support & Issues", footer_buy: "Acheter",
+    footer_terms: "CGU", footer_privacy: "Confidentialité", footer_refund: "Remboursement",
+    footer_payment: "Paiements par",
+    exclusive: "EXCLUSIF",
+    gallery_h: "PDF Editor en action",
+    gallery_sub: "Une visite visuelle de chaque fonctionnalité — cliquez sur une capture pour l'agrandir.",
+    gal_s1_title: "Interface principale",
+    gal_s1_i1_title: "Fenêtre principale — PDF ouvert",
+    gal_s1_i1_desc: "Vue d'ensemble de l'application avec un document chargé.",
+    gal_s1_i2_title: "Barre d'outils & navigation",
+    gal_s1_i2_desc: "Zoom sur la barre d'outils avec toutes les actions principales visibles.",
+    gal_s1_i3_title: "Panneau des pages",
+    gal_s1_i3_desc: "Panneau de vignettes affichant toutes les pages d'un document multipage.",
+    gal_s2_title: "Fusion & Division",
+    gal_s2_i1_title: "Menu contextuel clic droit",
+    gal_s2_i1_desc: "Entrée « Combiner dans PDF Editor » visible dans l'Explorateur Windows.",
+    gal_s2_i2_title: "Dialogue d'organisation — glisser-déposer",
+    gal_s2_i2_desc: "Vignettes de pages chargées depuis plusieurs PDF, prêtes à être réordonnées.",
+    gal_s2_i3_title: "Résultat fusionné",
+    gal_s2_i3_desc: "PDF final fusionné ouvert dans le visualiseur après la combinaison.",
+    gal_s3_title: "Organisation des pages",
+    gal_s3_i1_title: "Réordonner les pages",
+    gal_s3_i1_desc: "Glisser-déposer pour changer l'ordre des pages visuellement.",
+    gal_s3_i2_title: "Pivoter & supprimer",
+    gal_s3_i2_desc: "Sélectionner une ou plusieurs pages pour les pivoter ou les supprimer.",
+    gal_s3_i3_title: "Insérer depuis un autre PDF",
+    gal_s3_i3_desc: "Ajouter des pages d'un document externe dans le document courant.",
+    gal_s4_title: "Formulaires + Export JSON",
+    gal_s4_i1_title: "Remplir un formulaire PDF",
+    gal_s4_i1_desc: "Champs de formulaire interactifs — saisissez directement dans le PDF.",
+    gal_s4_i2_title: "Résultat de l'export JSON",
+    gal_s4_i2_desc: "Fichier JSON structuré généré depuis les données du formulaire en un clic.",
+    gal_s4_i3_title: "Workflow N8N / automatisation",
+    gal_s4_i3_desc: "Données JSON envoyées dans un workflow N8N via webhook.",
+    gal_s5_title: "Signatures numériques",
+    gal_s5_i1_title: "Charger un certificat",
+    gal_s5_i1_desc: "Importer un certificat .p12 / .pfx pour signer des documents.",
+    gal_s5_i2_title: "Placer la signature",
+    gal_s5_i2_desc: "Positionner le bloc de signature sur n'importe quelle page.",
+    gal_s5_i3_title: "PDF signé",
+    gal_s5_i3_desc: "Document signé avec horodatage et détails du certificat visibles.",
+    gal_s6_title: "Édition de texte & OCR",
+    gal_s6_i1_title: "Édition de texte en ligne",
+    gal_s6_i1_desc: "Cliquez sur un bloc de texte pour le modifier directement dans le PDF.",
+    gal_s6_i2_title: "OCR — document scanné",
+    gal_s6_i2_desc: "Avant / après OCR : une image scannée convertie en texte cherchable.",
+    gal_s6_i3_title: "Tampons & filigranes",
+    gal_s6_i3_desc: "Ajout d'un tampon personnalisé ou d'un filigrane sur toutes les pages.",
+    gal_s7_title: "Intégration Windows",
+    gal_s7_i1_title: "Convertir une image en PDF",
+    gal_s7_i1_desc: "Clic droit sur un .jpg ou .png → « Transformer en PDF » dans l'Explorateur.",
+    gal_s7_i2_title: "Protection par mot de passe",
+    gal_s7_i2_desc: "Chiffrement d'un PDF avec un mot de passe fort — restreindre impression / copie / édition.",
+    gal_s7_i3_title: "Paramètres & licence",
+    gal_s7_i3_desc: "Gestionnaire de licence avec statut d'activation et informations machine.",
+  },
+  en: {
+    nav_features: "Features", nav_pricing: "Pricing", nav_gallery: "Gallery",
+    nav_faq: "FAQ", nav_support: "Support", nav_buy: "Buy — from €45",
+    footer_support: "Support & Issues", footer_buy: "Buy",
+    footer_terms: "Terms of Service", footer_privacy: "Privacy Policy", footer_refund: "Refund Policy",
+    footer_payment: "Payments by",
+    exclusive: "EXCLUSIVE",
+    gallery_h: "PDF Editor in action",
+    gallery_sub: "A visual tour of every feature — click any screenshot to enlarge.",
+    gal_s1_title: "Main interface",
+    gal_s1_i1_title: "Main window — PDF open",
+    gal_s1_i1_desc: "Overview of the application with a document loaded.",
+    gal_s1_i2_title: "Toolbar & navigation",
+    gal_s1_i2_desc: "Close-up of the toolbar with all main actions visible.",
+    gal_s1_i3_title: "Page panel",
+    gal_s1_i3_desc: "Thumbnail panel showing all pages of a multi-page document.",
+    gal_s2_title: "Merge & Split",
+    gal_s2_i1_title: "Right-click context menu",
+    gal_s2_i1_desc: "\"Combine in PDF Editor\" entry visible in Windows Explorer.",
+    gal_s2_i2_title: "Organize dialog — drag & drop",
+    gal_s2_i2_desc: "Page thumbnails loaded from multiple PDFs, ready to reorder.",
+    gal_s2_i3_title: "Merged result",
+    gal_s2_i3_desc: "Final merged PDF open in the viewer after combining files.",
+    gal_s3_title: "Page organization",
+    gal_s3_i1_title: "Reorder pages",
+    gal_s3_i1_desc: "Drag & drop to change the order of pages visually.",
+    gal_s3_i2_title: "Rotate & delete",
+    gal_s3_i2_desc: "Select one or multiple pages to rotate or remove them.",
+    gal_s3_i3_title: "Insert from another PDF",
+    gal_s3_i3_desc: "Add pages from an external document into the current one.",
+    gal_s4_title: "Forms + JSON Export",
+    gal_s4_i1_title: "Filling a PDF form",
+    gal_s4_i1_desc: "Interactive form fields — type directly in the PDF.",
+    gal_s4_i2_title: "JSON export output",
+    gal_s4_i2_desc: "Structured JSON file generated from the form data in one click.",
+    gal_s4_i3_title: "N8N / automation workflow",
+    gal_s4_i3_desc: "JSON data flowing into an N8N workflow via webhook.",
+    gal_s5_title: "Digital signatures",
+    gal_s5_i1_title: "Load certificate",
+    gal_s5_i1_desc: "Import a .p12 / .pfx certificate to sign documents.",
+    gal_s5_i2_title: "Place signature",
+    gal_s5_i2_desc: "Position the signature block on any page of the document.",
+    gal_s5_i3_title: "Signed PDF",
+    gal_s5_i3_desc: "Document signed with timestamp and certificate details visible.",
+    gal_s6_title: "Text editing & OCR",
+    gal_s6_i1_title: "Inline text editing",
+    gal_s6_i1_desc: "Click any text block to edit it directly in the PDF.",
+    gal_s6_i2_title: "OCR — scanned document",
+    gal_s6_i2_desc: "Before / after OCR: a scanned image converted to searchable text.",
+    gal_s6_i3_title: "Stamps & watermarks",
+    gal_s6_i3_desc: "Add a custom stamp or watermark across all pages.",
+    gal_s7_title: "Windows integration",
+    gal_s7_i1_title: "Convert image to PDF",
+    gal_s7_i1_desc: "Right-click on a .jpg or .png → \"Convert to PDF\" in Explorer.",
+    gal_s7_i2_title: "Password protection",
+    gal_s7_i2_desc: "Encrypt a PDF with a strong password — restrict print / copy / edit.",
+    gal_s7_i3_title: "Settings & license",
+    gal_s7_i3_desc: "License manager with activation status and machine info.",
+  },
+  es: {
+    nav_features: "Funciones", nav_pricing: "Precios", nav_gallery: "Galería",
+    nav_faq: "FAQ", nav_support: "Soporte", nav_buy: "Comprar — desde 45€",
+    footer_support: "Soporte & Issues", footer_buy: "Comprar",
+    footer_terms: "Condiciones de uso", footer_privacy: "Privacidad", footer_refund: "Reembolso",
+    footer_payment: "Pagos por",
+    exclusive: "EXCLUSIVO",
+    gallery_h: "PDF Editor en acción",
+    gallery_sub: "Un recorrido visual por cada función — haz clic en cualquier captura para ampliarla.",
+    gal_s1_title: "Interfaz principal",
+    gal_s1_i1_title: "Ventana principal — PDF abierto",
+    gal_s1_i1_desc: "Vista general de la aplicación con un documento cargado.",
+    gal_s1_i2_title: "Barra de herramientas y navegación",
+    gal_s1_i2_desc: "Primer plano de la barra de herramientas con todas las acciones visibles.",
+    gal_s1_i3_title: "Panel de páginas",
+    gal_s1_i3_desc: "Panel de miniaturas con todas las páginas de un documento de varias páginas.",
+    gal_s2_title: "Fusionar y dividir",
+    gal_s2_i1_title: "Menú contextual clic derecho",
+    gal_s2_i1_desc: "Entrada \"Combinar en PDF Editor\" visible en el Explorador de Windows.",
+    gal_s2_i2_title: "Diálogo de organización — arrastrar y soltar",
+    gal_s2_i2_desc: "Miniaturas de páginas cargadas de varios PDFs, listas para reordenar.",
+    gal_s2_i3_title: "Resultado fusionado",
+    gal_s2_i3_desc: "PDF final fusionado abierto en el visor tras combinar los archivos.",
+    gal_s3_title: "Organización de páginas",
+    gal_s3_i1_title: "Reordenar páginas",
+    gal_s3_i1_desc: "Arrastra y suelta para cambiar el orden de las páginas visualmente.",
+    gal_s3_i2_title: "Rotar y eliminar",
+    gal_s3_i2_desc: "Selecciona una o varias páginas para rotarlas o eliminarlas.",
+    gal_s3_i3_title: "Insertar desde otro PDF",
+    gal_s3_i3_desc: "Añade páginas de un documento externo al documento actual.",
+    gal_s4_title: "Formularios + Exportar JSON",
+    gal_s4_i1_title: "Rellenar un formulario PDF",
+    gal_s4_i1_desc: "Campos de formulario interactivos — escribe directamente en el PDF.",
+    gal_s4_i2_title: "Resultado de exportación JSON",
+    gal_s4_i2_desc: "Archivo JSON estructurado generado desde los datos del formulario en un clic.",
+    gal_s4_i3_title: "Workflow N8N / automatización",
+    gal_s4_i3_desc: "Datos JSON enviados a un workflow N8N mediante webhook.",
+    gal_s5_title: "Firmas digitales",
+    gal_s5_i1_title: "Cargar certificado",
+    gal_s5_i1_desc: "Importa un certificado .p12 / .pfx para firmar documentos.",
+    gal_s5_i2_title: "Colocar firma",
+    gal_s5_i2_desc: "Posiciona el bloque de firma en cualquier página del documento.",
+    gal_s5_i3_title: "PDF firmado",
+    gal_s5_i3_desc: "Documento firmado con marca de tiempo y detalles del certificado visibles.",
+    gal_s6_title: "Edición de texto y OCR",
+    gal_s6_i1_title: "Edición de texto en línea",
+    gal_s6_i1_desc: "Haz clic en cualquier bloque de texto para editarlo directamente en el PDF.",
+    gal_s6_i2_title: "OCR — documento escaneado",
+    gal_s6_i2_desc: "Antes / después del OCR: imagen escaneada convertida en texto buscable.",
+    gal_s6_i3_title: "Sellos y marcas de agua",
+    gal_s6_i3_desc: "Añade un sello personalizado o marca de agua en todas las páginas.",
+    gal_s7_title: "Integración Windows",
+    gal_s7_i1_title: "Convertir imagen a PDF",
+    gal_s7_i1_desc: "Clic derecho en .jpg o .png → \"Convertir a PDF\" en el Explorador.",
+    gal_s7_i2_title: "Protección con contraseña",
+    gal_s7_i2_desc: "Cifra un PDF con contraseña fuerte — restringe impresión / copia / edición.",
+    gal_s7_i3_title: "Configuración y licencia",
+    gal_s7_i3_desc: "Gestor de licencias con estado de activación e información de máquina.",
+  },
+  de: {
+    nav_features: "Funktionen", nav_pricing: "Preise", nav_gallery: "Galerie",
+    nav_faq: "FAQ", nav_support: "Support", nav_buy: "Kaufen — ab 45€",
+    footer_support: "Support & Issues", footer_buy: "Kaufen",
+    footer_terms: "Nutzungsbedingungen", footer_privacy: "Datenschutz", footer_refund: "Rückerstattung",
+    footer_payment: "Zahlung via",
+    exclusive: "EXKLUSIV",
+    gallery_h: "PDF Editor in Aktion",
+    gallery_sub: "Eine visuelle Tour durch alle Funktionen — klicken Sie auf einen Screenshot zum Vergrößern.",
+    gal_s1_title: "Hauptoberfläche",
+    gal_s1_i1_title: "Hauptfenster — PDF geöffnet",
+    gal_s1_i1_desc: "Überblick über die Anwendung mit geladenem Dokument.",
+    gal_s1_i2_title: "Symbolleiste & Navigation",
+    gal_s1_i2_desc: "Detailansicht der Symbolleiste mit allen Hauptaktionen.",
+    gal_s1_i3_title: "Seitenpanel",
+    gal_s1_i3_desc: "Miniaturansichtspanel mit allen Seiten eines mehrseitigen Dokuments.",
+    gal_s2_title: "Zusammenführen & Teilen",
+    gal_s2_i1_title: "Rechtsklick-Kontextmenü",
+    gal_s2_i1_desc: "Eintrag „In PDF Editor zusammenführen" im Windows Explorer.",
+    gal_s2_i2_title: "Organisationsdialog — Drag & Drop",
+    gal_s2_i2_desc: "Seitenminiaturen aus mehreren PDFs geladen, bereit zum Neuanordnen.",
+    gal_s2_i3_title: "Zusammengeführtes Ergebnis",
+    gal_s2_i3_desc: "Endgültiges zusammengeführtes PDF im Viewer geöffnet.",
+    gal_s3_title: "Seitenorganisation",
+    gal_s3_i1_title: "Seiten neu anordnen",
+    gal_s3_i1_desc: "Drag & Drop zur visuellen Neuanordnung der Seiten.",
+    gal_s3_i2_title: "Drehen & Löschen",
+    gal_s3_i2_desc: "Eine oder mehrere Seiten auswählen, um sie zu drehen oder zu löschen.",
+    gal_s3_i3_title: "Aus anderem PDF einfügen",
+    gal_s3_i3_desc: "Seiten aus einem externen Dokument in das aktuelle einfügen.",
+    gal_s4_title: "Formulare + JSON-Export",
+    gal_s4_i1_title: "PDF-Formular ausfüllen",
+    gal_s4_i1_desc: "Interaktive Formularfelder — direkt im PDF eintippen.",
+    gal_s4_i2_title: "JSON-Export-Ausgabe",
+    gal_s4_i2_desc: "Strukturierte JSON-Datei aus Formulardaten mit einem Klick generiert.",
+    gal_s4_i3_title: "N8N / Automatisierungs-Workflow",
+    gal_s4_i3_desc: "JSON-Daten fließen per Webhook in einen N8N-Workflow.",
+    gal_s5_title: "Digitale Signaturen",
+    gal_s5_i1_title: "Zertifikat laden",
+    gal_s5_i1_desc: "Ein .p12 / .pfx-Zertifikat zum Signieren importieren.",
+    gal_s5_i2_title: "Signatur platzieren",
+    gal_s5_i2_desc: "Den Signaturblock auf einer beliebigen Seite positionieren.",
+    gal_s5_i3_title: "Signiertes PDF",
+    gal_s5_i3_desc: "Dokument mit Zeitstempel und Zertifikatsdetails signiert.",
+    gal_s6_title: "Textbearbeitung & OCR",
+    gal_s6_i1_title: "Inline-Textbearbeitung",
+    gal_s6_i1_desc: "Klicken Sie auf einen Textblock, um ihn direkt im PDF zu bearbeiten.",
+    gal_s6_i2_title: "OCR — gescanntes Dokument",
+    gal_s6_i2_desc: "Vor / nach OCR: gescanntes Bild in durchsuchbaren Text umgewandelt.",
+    gal_s6_i3_title: "Stempel & Wasserzeichen",
+    gal_s6_i3_desc: "Benutzerdefinierten Stempel oder Wasserzeichen auf allen Seiten hinzufügen.",
+    gal_s7_title: "Windows-Integration",
+    gal_s7_i1_title: "Bild in PDF konvertieren",
+    gal_s7_i1_desc: "Rechtsklick auf .jpg oder .png → „In PDF konvertieren" im Explorer.",
+    gal_s7_i2_title: "Passwortschutz",
+    gal_s7_i2_desc: "PDF mit starkem Passwort verschlüsseln — Drucken / Kopieren / Bearbeiten einschränken.",
+    gal_s7_i3_title: "Einstellungen & Lizenz",
+    gal_s7_i3_desc: "Lizenzverwaltung mit Aktivierungsstatus und Geräteinformationen.",
+  },
+  pt: {
+    nav_features: "Funcionalidades", nav_pricing: "Preços", nav_gallery: "Galeria",
+    nav_faq: "FAQ", nav_support: "Suporte", nav_buy: "Comprar — a partir de 45€",
+    footer_support: "Suporte & Issues", footer_buy: "Comprar",
+    footer_terms: "Termos de Uso", footer_privacy: "Privacidade", footer_refund: "Reembolso",
+    footer_payment: "Pagamentos por",
+    exclusive: "EXCLUSIVO",
+    gallery_h: "PDF Editor em ação",
+    gallery_sub: "Uma visita visual a cada funcionalidade — clique em qualquer imagem para ampliar.",
+    gal_s1_title: "Interface principal",
+    gal_s1_i1_title: "Janela principal — PDF aberto",
+    gal_s1_i1_desc: "Visão geral da aplicação com um documento carregado.",
+    gal_s1_i2_title: "Barra de ferramentas e navegação",
+    gal_s1_i2_desc: "Close-up da barra de ferramentas com todas as ações principais visíveis.",
+    gal_s1_i3_title: "Painel de páginas",
+    gal_s1_i3_desc: "Painel de miniaturas mostrando todas as páginas de um documento com várias páginas.",
+    gal_s2_title: "Unir e Dividir",
+    gal_s2_i1_title: "Menu de contexto — clique direito",
+    gal_s2_i1_desc: "Entrada \"Combinar no PDF Editor\" visível no Explorador do Windows.",
+    gal_s2_i2_title: "Diálogo de organização — arrastar e largar",
+    gal_s2_i2_desc: "Miniaturas de páginas carregadas de vários PDFs, prontas para reordenar.",
+    gal_s2_i3_title: "Resultado da fusão",
+    gal_s2_i3_desc: "PDF final aberto no visualizador após combinar os ficheiros.",
+    gal_s3_title: "Organização de páginas",
+    gal_s3_i1_title: "Reordenar páginas",
+    gal_s3_i1_desc: "Arrastar e largar para alterar a ordem das páginas visualmente.",
+    gal_s3_i2_title: "Rodar e eliminar",
+    gal_s3_i2_desc: "Selecionar uma ou várias páginas para as rodar ou eliminar.",
+    gal_s3_i3_title: "Inserir de outro PDF",
+    gal_s3_i3_desc: "Adicionar páginas de um documento externo ao documento atual.",
+    gal_s4_title: "Formulários + Exportar JSON",
+    gal_s4_i1_title: "Preencher um formulário PDF",
+    gal_s4_i1_desc: "Campos de formulário interativos — escreva diretamente no PDF.",
+    gal_s4_i2_title: "Resultado da exportação JSON",
+    gal_s4_i2_desc: "Ficheiro JSON estruturado gerado a partir dos dados do formulário em um clique.",
+    gal_s4_i3_title: "Workflow N8N / automatização",
+    gal_s4_i3_desc: "Dados JSON enviados para um workflow N8N via webhook.",
+    gal_s5_title: "Assinaturas digitais",
+    gal_s5_i1_title: "Carregar certificado",
+    gal_s5_i1_desc: "Importar um certificado .p12 / .pfx para assinar documentos.",
+    gal_s5_i2_title: "Colocar assinatura",
+    gal_s5_i2_desc: "Posicionar o bloco de assinatura em qualquer página do documento.",
+    gal_s5_i3_title: "PDF assinado",
+    gal_s5_i3_desc: "Documento assinado com carimbo de data/hora e detalhes do certificado visíveis.",
+    gal_s6_title: "Edição de texto e OCR",
+    gal_s6_i1_title: "Edição de texto em linha",
+    gal_s6_i1_desc: "Clique em qualquer bloco de texto para o editar diretamente no PDF.",
+    gal_s6_i2_title: "OCR — documento digitalizado",
+    gal_s6_i2_desc: "Antes / depois do OCR: imagem digitalizada convertida em texto pesquisável.",
+    gal_s6_i3_title: "Carimbos e marcas de água",
+    gal_s6_i3_desc: "Adicionar um carimbo personalizado ou marca de água em todas as páginas.",
+    gal_s7_title: "Integração Windows",
+    gal_s7_i1_title: "Converter imagem em PDF",
+    gal_s7_i1_desc: "Clique direito em .jpg ou .png → \"Converter para PDF\" no Explorador.",
+    gal_s7_i2_title: "Proteção por palavra-passe",
+    gal_s7_i2_desc: "Encriptar um PDF com palavra-passe forte — restringir impressão / cópia / edição.",
+    gal_s7_i3_title: "Definições e licença",
+    gal_s7_i3_desc: "Gestor de licenças com estado de ativação e informações da máquina.",
+  },
+  ru: {
+    nav_features: "Функции", nav_pricing: "Цены", nav_gallery: "Галерея",
+    nav_faq: "FAQ", nav_support: "Поддержка", nav_buy: "Купить — от 45€",
+    footer_support: "Поддержка & Issues", footer_buy: "Купить",
+    footer_terms: "Условия использования", footer_privacy: "Конфиденциальность", footer_refund: "Возврат средств",
+    footer_payment: "Платежи через",
+    exclusive: "ЭКСКЛЮЗИВ",
+    gallery_h: "PDF Editor в действии",
+    gallery_sub: "Визуальный тур по каждой функции — нажмите на скриншот для увеличения.",
+    gal_s1_title: "Основной интерфейс",
+    gal_s1_i1_title: "Главное окно — PDF открыт",
+    gal_s1_i1_desc: "Обзор приложения с загруженным документом.",
+    gal_s1_i2_title: "Панель инструментов и навигация",
+    gal_s1_i2_desc: "Крупный план панели инструментов со всеми основными действиями.",
+    gal_s1_i3_title: "Панель страниц",
+    gal_s1_i3_desc: "Панель миниатюр с отображением всех страниц многостраничного документа.",
+    gal_s2_title: "Объединение и разделение",
+    gal_s2_i1_title: "Контекстное меню правой кнопки",
+    gal_s2_i1_desc: "Пункт «Объединить в PDF Editor» в контекстном меню Проводника Windows.",
+    gal_s2_i2_title: "Диалог организации — перетаскивание",
+    gal_s2_i2_desc: "Миниатюры страниц из нескольких PDF, готовые к перестановке.",
+    gal_s2_i3_title: "Результат объединения",
+    gal_s2_i3_desc: "Итоговый объединённый PDF открыт в просмотрщике.",
+    gal_s3_title: "Организация страниц",
+    gal_s3_i1_title: "Изменение порядка страниц",
+    gal_s3_i1_desc: "Перетаскивание для визуального изменения порядка страниц.",
+    gal_s3_i2_title: "Поворот и удаление",
+    gal_s3_i2_desc: "Выберите одну или несколько страниц для поворота или удаления.",
+    gal_s3_i3_title: "Вставка из другого PDF",
+    gal_s3_i3_desc: "Добавление страниц из внешнего документа в текущий.",
+    gal_s4_title: "Формы + Экспорт JSON",
+    gal_s4_i1_title: "Заполнение PDF-формы",
+    gal_s4_i1_desc: "Интерактивные поля формы — вводите данные прямо в PDF.",
+    gal_s4_i2_title: "Результат экспорта JSON",
+    gal_s4_i2_desc: "Структурированный JSON-файл из данных формы за один клик.",
+    gal_s4_i3_title: "Workflow N8N / автоматизация",
+    gal_s4_i3_desc: "JSON-данные передаются в workflow N8N через вебхук.",
+    gal_s5_title: "Цифровые подписи",
+    gal_s5_i1_title: "Загрузка сертификата",
+    gal_s5_i1_desc: "Импорт сертификата .p12 / .pfx для подписи документов.",
+    gal_s5_i2_title: "Размещение подписи",
+    gal_s5_i2_desc: "Расположите блок подписи на любой странице документа.",
+    gal_s5_i3_title: "Подписанный PDF",
+    gal_s5_i3_desc: "Документ подписан с отметкой времени и видимыми данными сертификата.",
+    gal_s6_title: "Редактирование текста и OCR",
+    gal_s6_i1_title: "Встроенное редактирование текста",
+    gal_s6_i1_desc: "Кликните на текстовый блок, чтобы редактировать его прямо в PDF.",
+    gal_s6_i2_title: "OCR — отсканированный документ",
+    gal_s6_i2_desc: "До / после OCR: отсканированное изображение преобразовано в текст с поиском.",
+    gal_s6_i3_title: "Штампы и водяные знаки",
+    gal_s6_i3_desc: "Добавление пользовательского штампа или водяного знака на все страницы.",
+    gal_s7_title: "Интеграция с Windows",
+    gal_s7_i1_title: "Конвертация изображения в PDF",
+    gal_s7_i1_desc: "Правый клик на .jpg или .png → «Конвертировать в PDF» в Проводнике.",
+    gal_s7_i2_title: "Защита паролем",
+    gal_s7_i2_desc: "Зашифровать PDF надёжным паролем — ограничить печать / копирование / редактирование.",
+    gal_s7_i3_title: "Настройки и лицензия",
+    gal_s7_i3_desc: "Менеджер лицензий со статусом активации и информацией об устройстве.",
+  }
+};
+
+let currentLang = 'en';
+
+function detectLang() {
+  const saved = localStorage.getItem('pdf_editor_lang');
+  if (saved && LANGS[saved]) return saved;
+  const browser = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  return LANGS[browser] ? browser : 'en';
+}
+
+function loadImages(code) {
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    const filename = item.dataset.img;
+    if (!filename) return;
+    const img = item.querySelector('.gallery-thumb');
+    const ph  = item.querySelector('.gallery-placeholder');
+    if (!img || !ph) return;
+
+    // Reset state
+    img.classList.remove('loaded');
+    ph.classList.remove('hidden');
+
+    const newSrc = `screenshots/${code}/${filename}`;
+    img.onload = () => {
+      img.classList.add('loaded');
+      ph.classList.add('hidden');
+    };
+    img.onerror = () => {
+      img.classList.remove('loaded');
+      ph.classList.remove('hidden');
+    };
+    img.src = newSrc;
+  });
+}
+
+function setLang(code) {
+  if (!LANGS[code]) return;
+  currentLang = code;
+  localStorage.setItem('pdf_editor_lang', code);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (LANGS[code][key] !== undefined) el.innerHTML = LANGS[code][key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === code)
+  );
+  // Load screenshots for the selected language
+  loadImages(code);
+  // Update lightbox caption if open
+  updateLightboxCaption();
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+// ── Lightbox ─────────────────────────────────────────────────────────────────
+const lightbox   = document.getElementById('lightbox');
+const lbImg      = document.getElementById('lb-img');
+const lbCaption  = document.getElementById('lb-caption');
+const lbCounter  = document.getElementById('lb-counter');
+const lbClose    = document.getElementById('lb-close');
+const lbPrev     = document.getElementById('lb-prev');
+const lbNext     = document.getElementById('lb-next');
+
+// Collect all gallery items that have a real image (non-placeholder)
+let allItems = [];
+let currentIdx = 0;
+
+function buildItemList() {
+  allItems = Array.from(document.querySelectorAll('.gallery-item'));
+}
+
+function openLightbox(idx) {
+  buildItemList();
+  currentIdx = idx;
+  showItem(currentIdx);
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function showItem(idx) {
+  const item = allItems[idx];
+  if (!item) return;
+  const img = item.querySelector('.gallery-thumb');
+  const titleKey = item.dataset.titleKey;
+  const descKey  = item.dataset.descKey;
+  const title = (titleKey && LANGS[currentLang][titleKey]) || '';
+  const desc  = (descKey  && LANGS[currentLang][descKey])  || '';
+
+  if (img && img.classList.contains('loaded')) {
+    lbImg.src = img.src;
+    lbImg.alt = title;
+    lbImg.style.display = 'block';
+  } else {
+    // No image yet — show placeholder text in lightbox
+    lbImg.src = '';
+    lbImg.style.display = 'none';
+  }
+  lbCaption.innerHTML = title ? `<strong>${title}</strong> ${desc}` : desc;
+  lbCounter.textContent = `${idx + 1} / ${allItems.length}`;
+}
+
+function updateLightboxCaption() {
+  if (lightbox.classList.contains('open')) showItem(currentIdx);
+}
+
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+lbPrev.addEventListener('click', () => { currentIdx = (currentIdx - 1 + allItems.length) % allItems.length; showItem(currentIdx); });
+lbNext.addEventListener('click', () => { currentIdx = (currentIdx + 1) % allItems.length; showItem(currentIdx); });
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowLeft')   { currentIdx = (currentIdx - 1 + allItems.length) % allItems.length; showItem(currentIdx); }
+  if (e.key === 'ArrowRight')  { currentIdx = (currentIdx + 1) % allItems.length; showItem(currentIdx); }
+});
+
+document.querySelectorAll('.gallery-item').forEach((item, idx) => {
+  item.addEventListener('click', () => openLightbox(idx));
+});
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+setLang(detectLang());
+</script>
+</body>
+</html>

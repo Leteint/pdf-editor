@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politique de Remboursement — PDF Editor</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117; --card: #232840; --border: #2e3450;
+    --red: #e84444; --text: #e8eaf0; --muted: #8892b0;
+    --blue: #64b5f6; --green: #4caf78;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.7; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,17,23,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.45rem; }
+  .nav-logo img { height: 26px; width: auto; display: block; }
+  .nav-logo:hover { color: var(--blue); text-decoration: none; }
+  .nav-back { color: var(--muted); font-size: 0.9rem; }
+  .nav-back:hover { color: var(--text); }
+
+  .page-wrap { max-width: 820px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+  .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .page-header h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .page-header .meta { color: var(--muted); font-size: 0.875rem; }
+
+  h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 2.5rem 0 0.75rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+  h2:first-of-type { border-top: none; margin-top: 0; }
+  p { color: var(--muted); margin-bottom: 0.9rem; }
+  ul { color: var(--muted); padding-left: 1.5rem; margin-bottom: 0.9rem; }
+  ul li { margin-bottom: 0.5rem; }
+  strong { color: var(--text); }
+
+  .guarantee-box {
+    background: rgba(76,175,120,0.1); border: 1px solid rgba(76,175,120,0.4);
+    border-radius: 12px; padding: 1.75rem 2rem; margin: 1.5rem 0 2.5rem;
+    text-align: center;
+  }
+  .guarantee-box .icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+  .guarantee-box h3 { font-size: 1.4rem; font-weight: 800; color: #4caf78; margin-bottom: 0.5rem; }
+  .guarantee-box p { color: var(--text); margin-bottom: 0; font-size: 1rem; }
+
+  .steps {
+    counter-reset: step-counter;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 1.5rem;
+  }
+  .steps li {
+    counter-increment: step-counter;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+    color: var(--muted);
+  }
+  .steps li::before {
+    content: counter(step-counter);
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem; border-radius: 8px;
+    font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; border: none; text-decoration: none;
+    background: var(--red); color: #fff;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.9; text-decoration: none; }
+
+  footer {
+    padding: 2rem; text-align: center; font-size: 0.85rem;
+    color: var(--muted); border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--text); }
+  .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="PDF Editor logo">PDF Editor</a>
+  <a href="index.html" class="nav-back">← Retour au site</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <h1>Politique de Remboursement</h1>
+    <p class="meta">Dernière mise à jour : 6 avril 2026</p>
+  </div>
+
+  <div class="guarantee-box">
+    <span class="icon">🛡️</span>
+    <h3>Satisfait ou remboursé — 14 jours</h3>
+    <p>Si PDF Editor ne correspond pas à vos attentes, nous vous remboursons intégralement dans les 14 jours suivant l'achat. Sans question, sans justification obligatoire.</p>
+  </div>
+
+  <h2>Notre engagement</h2>
+  <p>Nous sommes convaincus de la qualité de PDF Editor. Si pour quelque raison que ce soit le logiciel ne vous convient pas, vous pouvez demander un remboursement complet <strong>dans les 14 jours calendaires suivant votre achat</strong>.</p>
+  <p>Cette politique s'applique à <strong>tous les plans</strong> : Solo, Team, Business, et Enterprise (première période annuelle).</p>
+
+  <h2>Comment demander un remboursement</h2>
+  <ol class="steps">
+    <li>Ouvrez une demande sur <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener">GitHub Issues</a> avec le titre <strong>"Remboursement — [votre email d'achat]"</strong>.</li>
+    <li>Indiquez votre email d'achat et la date de commande (disponibles dans l'email de confirmation Lemon Squeezy).</li>
+    <li>Nous traitons votre demande dans les <strong>48 heures ouvrées</strong>.</li>
+    <li>Le remboursement est émis par Lemon Squeezy vers votre moyen de paiement d'origine. Le délai de réception dépend de votre banque (généralement 3–5 jours ouvrés).</li>
+  </ol>
+
+  <p style="margin-top:1.5rem;">
+    <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener" class="btn">Demander un remboursement</a>
+  </p>
+
+  <h2>Ce qui se passe après le remboursement</h2>
+  <p>Une fois le remboursement traité :</p>
+  <ul>
+    <li>Votre clé de licence est révoquée — le logiciel cessera de fonctionner à la prochaine connexion internet (ou au plus tard dans les 7 jours en mode hors ligne)</li>
+    <li>Vous pouvez désinstaller le logiciel depuis le Panneau de configuration Windows</li>
+    <li>Aucune donnée de vos fichiers PDF n'a jamais quitté votre ordinateur</li>
+  </ul>
+
+  <h2>Cas particuliers</h2>
+
+  <p><strong>Plan Enterprise (abonnement annuel)</strong><br>
+  Le remboursement de 14 jours s'applique à la première souscription. Les renouvellements annuels peuvent être remboursés au prorata si une demande est formulée dans les 14 jours suivant le renouvellement automatique.</p>
+
+  <p><strong>Après 14 jours</strong><br>
+  Au-delà de la période de 14 jours, les remboursements sont examinés au cas par cas. Nous étudions favorablement les situations exceptionnelles (bug bloquant non résolu, problème de compatibilité matérielle non documenté). Contactez-nous — nous trouverons une solution.</p>
+
+  <p><strong>Achats frauduleux</strong><br>
+  Si vous pensez que votre clé de licence a été achetée frauduleusement avec vos données bancaires, contactez-nous immédiatement et contactez également votre banque. Nous révoquons la licence sans délai.</p>
+
+  <h2>Droits des consommateurs européens</h2>
+  <p>En tant que consommateur dans l'Union Européenne, vous bénéficiez d'un <strong>droit de rétractation légal de 14 jours</strong> pour les achats en ligne de logiciels (Directive 2011/83/UE), à condition que le téléchargement n'ait pas commencé avec votre consentement explicite. Notre garantie commerciale de 14 jours s'aligne sur ce droit et s'y substitue avantageusement : elle s'applique même après téléchargement et installation.</p>
+
+  <h2>Contact</h2>
+  <p>Pour toute question sur les remboursements : <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener">GitHub Issues</a><br>
+  Nous répondons généralement dans les 24 heures ouvrées.</p>
+
+</div>
+
+<footer>
+  <div>© 2026 PDF Editor. Tous droits réservés.</div>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="terms.html">CGU</a>
+    <a href="privacy.html">Confidentialité</a>
+    <a href="refund.html">Remboursement</a>
+    <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>

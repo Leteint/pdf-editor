@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Editor — Professional PDF Editor for Windows</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --card: #232840;
+    --border: #2e3450;
+    --red: #e84444;
+    --text: #e8eaf0;
+    --muted: #8892b0;
+    --blue: #64b5f6;
+    --green: #4caf78;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,17,23,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .nav-logo img { height: 28px; width: auto; display: block; }
+  .nav-logo:hover { text-decoration: none; color: var(--blue); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .lang-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 3px 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: border-color 0.2s, background 0.2s;
+    line-height: 1;
+    color: var(--text);
+  }
+  .lang-btn:hover { border-color: var(--border); background: var(--card); }
+  .lang-btn.active { border-color: var(--blue); background: rgba(100,181,246,0.1); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+    text-decoration: none;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); text-decoration: none; }
+  .btn:active { transform: translateY(0); }
+
+  .btn-primary {
+    background: var(--red);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #d43a3a; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+  .btn-blue {
+    background: var(--blue);
+    color: #0f1117;
+  }
+  .btn-blue:hover { background: #90caf9; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(232,68,68,0.15);
+    border: 1px solid rgba(232,68,68,0.4);
+    color: var(--red);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    background: linear-gradient(135deg, #e8eaf0 0%, #64b5f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .hero-ctas .btn { font-size: 1rem; padding: 0.8rem 1.75rem; }
+
+  .proof-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1.25rem 2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .proof-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .proof-item .icon { color: var(--green); font-size: 1rem; }
+
+  /* RED BANNER */
+  .red-banner {
+    background: linear-gradient(135deg, rgba(232,68,68,0.12) 0%, rgba(232,68,68,0.05) 100%);
+    border-top: 1px solid rgba(232,68,68,0.3);
+    border-bottom: 1px solid rgba(232,68,68,0.3);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+
+  .red-banner-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .red-banner h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 0.75rem;
+  }
+
+  .red-banner p {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .red-banner strong { color: var(--text); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* FEATURES GRID */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 580px) { .features-grid { grid-template-columns: 1fr; } }
+
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .feature-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+
+  .feature-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .feature-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .feature-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .exclusive-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  /* N8N SPOTLIGHT */
+  .n8n-section {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .n8n-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (max-width: 720px) { .n8n-grid { grid-template-columns: 1fr; } }
+
+  .n8n-text h2 {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .n8n-text p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .n8n-tools {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+
+  .tool-tag {
+    background: rgba(100,181,246,0.1);
+    border: 1px solid rgba(100,181,246,0.3);
+    color: var(--blue);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+  }
+
+  .code-block {
+    background: #0f1117;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .code-block-header {
+    background: rgba(46,52,80,0.5);
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .code-block pre {
+    padding: 1.25rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #c3e6cb;
+    overflow-x: auto;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  }
+
+  .json-key { color: #90caf9; }
+  .json-str { color: #a5d6a7; }
+  .json-num { color: #ffcc80; }
+
+  /* COMPARISON TABLE */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  th {
+    background: var(--card);
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+    color: var(--text);
+  }
+
+  th.our-col {
+    background: rgba(100,181,246,0.08);
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+  }
+
+  td {
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    vertical-align: middle;
+  }
+
+  td.our-col {
+    background: rgba(100,181,246,0.04);
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .check { color: var(--green); font-size: 1.1rem; }
+  .cross { color: var(--red); font-size: 1.1rem; }
+  .partial { color: #ffcc80; font-size: 1.1rem; }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  @media (max-width: 1000px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem 1.5rem;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .price-card:hover { transform: translateY(-3px); }
+
+  .price-card.popular {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 1px var(--blue), 0 8px 32px rgba(100,181,246,0.15);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--blue);
+    color: #0f1117;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .price-plan {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .price-amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .price-amount sup {
+    font-size: 1.2rem;
+    vertical-align: super;
+    font-weight: 600;
+  }
+
+  .price-once {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .price-seats {
+    font-size: 0.85rem;
+    color: var(--blue);
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+
+  .price-features {
+    list-style: none;
+    margin-bottom: 1.75rem;
+  }
+
+  .price-features li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .price-features li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .price-card .btn { width: 100%; justify-content: center; }
+
+  /* FAQ */
+  .faq-list { max-width: 760px; margin: 0 auto; }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .faq-question {
+    width: 100%;
+    background: var(--card);
+    border: none;
+    padding: 1.1rem 1.5rem;
+    text-align: left;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+  .faq-question:hover { background: rgba(46,52,80,0.8); }
+
+  .faq-arrow {
+    color: var(--muted);
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-item.open .faq-answer { max-height: 300px; }
+
+  .faq-answer-inner {
+    padding: 1rem 1.5rem 1.25rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    border-top: 1px solid var(--border);
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(100,181,246,0.06) 0%, rgba(232,68,68,0.06) 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .final-cta h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .final-cta p {
+    color: var(--muted);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  .final-cta-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--text); }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* MOBILE NAV */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    nav { gap: 0.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .lang-btn span.label { display: none; }
+  }
+
+  /* Utility */
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+  /* Divider */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><img src="logo.png" alt="PDF Editor logo">PDF Editor</a>
+  <ul class="nav-links">
+    <li><a href="#features" data-i18n="nav_features">Features</a></li>
+    <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
+    <li><a href="gallery.html" data-i18n="nav_gallery">Gallery</a></li>
+    <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+    <li><a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener" data-i18n="nav_support">Support</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+      <button class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+      <button class="lang-btn" data-lang="es" aria-label="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+      <button class="lang-btn" data-lang="pt" aria-label="Português">🇵🇹</button>
+      <button class="lang-btn" data-lang="ru" aria-label="Русский">🇷🇺</button>
+    </div>
+    <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="nav_buy">Buy — from 45€</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="badge" data-i18n="hero_badge">One-time purchase · No subscription</div>
+  <h1 data-i18n="hero_h1">The professional PDF editor<br>that respects your wallet</h1>
+  <p data-i18n="hero_sub">Edit, merge, sign, extract forms to JSON — everything you need, once. No monthly fees. No cloud required.</p>
+  <div class="hero-ctas">
+    <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="hero_buy">Buy now — from 19€</a>
+    <a href="#features" class="btn btn-outline" data-i18n="hero_features">See all features ↓</a>
+  </div>
+  <div class="proof-bar">
+    <div class="proof-item"><span class="icon">✓</span><span data-i18n="proof_windows">Windows 10 &amp; 11</span></div>
+    <div class="proof-item"><span class="icon">✓</span><span data-i18n="proof_onetime">One-time purchase</span></div>
+    <div class="proof-item"><span class="icon">✓</span><span data-i18n="proof_multilang">6 languages</span></div>
+    <div class="proof-item"><span class="icon">✓</span><span data-i18n="proof_updates">Updates included</span></div>
+    <div class="proof-item"><span class="icon">✓</span><span data-i18n="proof_noads">Zero ads — ever</span></div>
+  </div>
+</section>
+
+<!-- RED BANNER -->
+<div class="red-banner">
+  <div class="red-banner-inner">
+    <h2 data-i18n="banner_h">Stop paying every month for your PDF software</h2>
+    <p data-i18n="banner_p">You pay <strong>once</strong>. You own it <strong>forever</strong>. All updates included. No cloud required. <strong>Zero ads</strong> — now or ever.</p>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 data-i18n="feat_h">Everything you need, nothing you don't</h2>
+      <p data-i18n="feat_sub">A complete toolbox built for professionals who work with PDFs every day.</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <span class="feature-icon">🔀</span>
+        <h3 data-i18n="f1_title">Merge &amp; Split</h3>
+        <p data-i18n="f1_desc">Combine multiple PDFs into one or extract specific pages into separate files in seconds.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📋</span>
+        <h3 data-i18n="f2_title">Page Reorganization</h3>
+        <p data-i18n="f2_desc">Drag &amp; drop pages to reorder, rotate, or delete them. Visual page panel for full control.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">✏️</span>
+        <h3 data-i18n="f3_title">Text Editing</h3>
+        <p data-i18n="f3_desc">Edit text directly in your PDFs. Change fonts, sizes, colors — no roundtrip to Word needed.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="exclusive-badge" data-i18n="exclusive">EXCLUSIVE</span>
+        <span class="feature-icon">📊</span>
+        <h3 data-i18n="f4_title">Forms + JSON Export</h3>
+        <p data-i18n="f4_desc">Fill PDF forms and export field data as structured JSON — ready to inject into any workflow or API.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🔍</span>
+        <h3 data-i18n="f5_title">OCR</h3>
+        <p data-i18n="f5_desc">Convert scanned documents and images into fully searchable, selectable text PDFs.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">✍️</span>
+        <h3 data-i18n="f6_title">Digital Signatures</h3>
+        <p data-i18n="f6_desc">Sign documents with legally valid digital signatures. Send for signature without a SaaS subscription.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🔒</span>
+        <h3 data-i18n="f7_title">Password Protection</h3>
+        <p data-i18n="f7_desc">Encrypt PDFs with strong passwords and set permission restrictions (print, copy, edit).</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🖼️</span>
+        <h3 data-i18n="f8_title">Stamps &amp; Watermarks</h3>
+        <p data-i18n="f8_desc">Add custom text or image stamps, watermarks, and headers/footers across all pages.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🖱️</span>
+        <h3 data-i18n="f9_title">Windows Right-click Integration</h3>
+        <p data-i18n="f9_desc">Merge, convert, or open PDFs directly from Explorer's right-click context menu. No extra steps.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- N8N SPOTLIGHT -->
+<section class="n8n-section" id="n8n">
+  <div class="section-inner">
+    <div class="n8n-grid">
+      <div class="n8n-text">
+        <div class="badge" style="margin-bottom:1rem;" data-i18n="n8n_badge">Exclusive feature</div>
+        <h2 data-i18n="n8n_h">Connect your PDFs to your automation workflows</h2>
+        <p data-i18n="n8n_p1">PDF Editor is the only desktop PDF tool that natively exports form data as structured JSON — the lingua franca of modern automation.</p>
+        <p data-i18n="n8n_p2">Connect it to <strong style="color:var(--text)">N8N</strong>, <strong style="color:var(--text)">Make</strong>, or <strong style="color:var(--text)">Zapier</strong> to automatically route form submissions to your CRM, database, or notification system — zero manual re-entry.</p>
+        <p data-i18n="n8n_p3">Perfect for: order forms, HR onboarding, invoices, client contracts, expense reports.</p>
+        <div class="n8n-tools">
+          <span class="tool-tag">N8N</span>
+          <span class="tool-tag">Make</span>
+          <span class="tool-tag">Zapier</span>
+          <span class="tool-tag">REST API</span>
+          <span class="tool-tag">Webhook</span>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">
+          <span>📄</span>
+          <span data-i18n="n8n_code_label">JSON output — order_form.pdf</span>
+        </div>
+        <pre>{
+  <span class="json-key">"form_id"</span>: <span class="json-str">"order_2026_03_001"</span>,
+  <span class="json-key">"extracted_at"</span>: <span class="json-str">"2026-03-30T09:14:22Z"</span>,
+  <span class="json-key">"fields"</span>: {
+    <span class="json-key">"client_name"</span>: <span class="json-str">"Acme Corp"</span>,
+    <span class="json-key">"client_email"</span>: <span class="json-str">"orders@acme.com"</span>,
+    <span class="json-key">"product_ref"</span>: <span class="json-str">"PRD-4471-X"</span>,
+    <span class="json-key">"quantity"</span>: <span class="json-num">12</span>,
+    <span class="json-key">"unit_price"</span>: <span class="json-num">34.90</span>,
+    <span class="json-key">"total_ht"</span>: <span class="json-num">418.80</span>,
+    <span class="json-key">"vat_rate"</span>: <span class="json-str">"20%"</span>,
+    <span class="json-key">"signed"</span>: <span class="json-num">true</span>,
+    <span class="json-key">"delivery_date"</span>: <span class="json-str">"2026-04-15"</span>
+  }
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background: linear-gradient(180deg, transparent 0%, rgba(35,40,64,0.3) 100%);">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 data-i18n="pricing_h">Simple, honest pricing</h2>
+      <p data-i18n="pricing_sub">Pay once. Use forever. All plans include all features. No ads — now or ever.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- SOLO -->
+      <div class="price-card">
+        <div class="price-plan" data-i18n="plan1_name">Solo</div>
+        <div class="price-amount"><sup>€</sup>45</div>
+        <div class="price-once" data-i18n="price_once">one-time payment</div>
+        <div class="price-seats" data-i18n="plan1_seats">1 seat</div>
+        <ul class="price-features">
+          <li data-i18n="plan_f1">All features included</li>
+          <li data-i18n="plan_f2">Free reinstall anytime</li>
+          <li data-i18n="plan_f3">Updates included</li>
+          <li data-i18n="plan_f4">Personal use</li>
+        </ul>
+        <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="plan_buy">Buy now</a>
+      </div>
+
+      <!-- TEAM -->
+      <div class="price-card popular">
+        <div class="popular-badge" data-i18n="popular">POPULAR</div>
+        <div class="price-plan" data-i18n="plan2_name">Team</div>
+        <div class="price-amount"><sup>€</sup>199</div>
+        <div class="price-once" data-i18n="price_once">one-time payment</div>
+        <div class="price-seats" data-i18n="plan2_seats">5 seats</div>
+        <ul class="price-features">
+          <li data-i18n="plan_f1">All features included</li>
+          <li data-i18n="plan_f2">Free reinstall anytime</li>
+          <li data-i18n="plan_f3">Updates included</li>
+          <li data-i18n="plan2_f4">Small teams</li>
+          <li data-i18n="plan_invoice">Invoice provided</li>
+        </ul>
+        <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-blue" data-i18n="plan_buy">Buy now</a>
+      </div>
+
+      <!-- BUSINESS -->
+      <div class="price-card">
+        <div class="price-plan" data-i18n="plan3_name">Business</div>
+        <div class="price-amount"><sup>€</sup>700</div>
+        <div class="price-once" data-i18n="price_once">one-time payment</div>
+        <div class="price-seats" data-i18n="plan3_seats">20 seats</div>
+        <ul class="price-features">
+          <li data-i18n="plan_f1">All features included</li>
+          <li data-i18n="plan_f2">Free reinstall anytime</li>
+          <li data-i18n="plan_f3">Updates included</li>
+          <li data-i18n="plan3_f4">Medium businesses</li>
+          <li data-i18n="plan_invoice">Invoice provided</li>
+          <li data-i18n="plan3_activations">20 simultaneous activations</li>
+        </ul>
+        <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="plan_buy">Buy now</a>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="price-card">
+        <div class="price-plan" data-i18n="plan4_name">Enterprise</div>
+        <div class="price-amount"><sup>€</sup>700</div>
+        <div class="price-once" data-i18n="price_annual">per year</div>
+        <div class="price-seats" data-i18n="plan4_seats">Unlimited seats</div>
+        <ul class="price-features">
+          <li data-i18n="plan_f1">All features included</li>
+          <li data-i18n="plan_f2">Free reinstall anytime</li>
+          <li data-i18n="plan_f3">Updates included</li>
+          <li data-i18n="plan4_f4">Unlimited deployment</li>
+          <li data-i18n="plan_invoice">Invoice provided</li>
+          <li data-i18n="plan4_activations">Unlimited activations</li>
+        </ul>
+        <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="plan_buy">Buy now</a>
+      </div>
+
+    </div>
+    <div style="text-align:center; margin-top:2rem;">
+      <div style="display:inline-flex; align-items:center; gap:0.75rem; background:rgba(76,175,120,0.1); border:1px solid rgba(76,175,120,0.35); border-radius:12px; padding:0.85rem 1.75rem;">
+        <span style="font-size:1.5rem;">🛡️</span>
+        <div style="text-align:left;">
+          <div style="font-weight:700; color:#4caf78; font-size:0.95rem;" data-i18n="refund_title">14-day money-back guarantee</div>
+          <div style="font-size:0.82rem; color:var(--muted);" data-i18n="refund_sub">Not satisfied? Contact us within 14 days — full refund, no questions asked.</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:1.25rem; font-size:0.85rem; color:var(--muted);" data-i18n="pricing_lemon">Payments processed securely by <a href="https://lemonsqueezy.com" target="_blank" rel="noopener" style="color:var(--muted)">Lemon Squeezy</a>. VAT included where applicable.</p>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 data-i18n="comp_h">How we compare</h2>
+      <p data-i18n="comp_sub">An honest side-by-side comparison with the most popular PDF tools.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="comp_criteria">Criteria</th>
+            <th class="our-col">📄 PDF Editor</th>
+            <th>Adobe Acrobat</th>
+            <th>PDF-XChange</th>
+            <th>PDF24</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="comp_price">Price</td>
+            <td class="our-col" data-i18n="comp_price_us">45€ – 700€</td>
+            <td data-i18n="comp_price_adobe">~250€/year</td>
+            <td data-i18n="comp_price_xchange">~60€/year</td>
+            <td data-i18n="comp_price_pdf24">Free (ads)</td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_reinstall">Free reinstall</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_updates">Updates included</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="partial">~</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_noads">Zero ads</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_json">Forms + JSON export</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_n8n">N8N / automation</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_merge">Merge / Split</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_ocr">OCR</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="partial">~</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_sign">Digital signatures</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="partial">~</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_ctx">Windows right-click</td>
+            <td class="our-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="partial">~</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td data-i18n="comp_ease">Ease of use</td>
+            <td class="our-col" data-i18n="comp_ease_us">⭐⭐⭐⭐⭐</td>
+            <td data-i18n="comp_ease_adobe">⭐⭐⭐</td>
+            <td data-i18n="comp_ease_xchange">⭐⭐⭐</td>
+            <td data-i18n="comp_ease_pdf24">⭐⭐⭐⭐</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 data-i18n="faq_h">Frequently asked questions</h2>
+      <p data-i18n="faq_sub">Can't find your answer? <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener">Open an issue on GitHub</a></p>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq1_q">Can I reinstall on a new computer?</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner" data-i18n="faq1_a">Yes — your license is tied to your account, not your machine. You can deactivate and reactivate on any Windows PC at any time, without contacting support.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq2_q">Are future updates really included?</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner" data-i18n="faq2_a">Yes. All updates within the major version you purchased are free. If a major new version is ever released at a significantly higher price point, existing customers will receive a substantial loyalty discount.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq3_q">Does it work offline?</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner" data-i18n="faq3_a">PDF Editor is a fully offline-capable desktop application. License validation requires an internet connection on first activation and periodically (every 7 days). After that, it works without any connection.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq4_q">Is it Windows only?</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner" data-i18n="faq4_a">Currently yes — PDF Editor is a native Windows 10/11 application. macOS and Linux versions are on the roadmap. Vote or watch the GitHub repository to be notified.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq5_q">How does the N8N / automation integration work?</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner" data-i18n="faq5_a">When you export form data as JSON, PDF Editor saves a structured .json file or can POST it directly to a webhook URL of your choice. In N8N, Make, or Zapier, you simply listen on that webhook — no custom code required.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq6_q">Can I get an invoice for my company?</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner" data-i18n="faq6_a">Yes — Lemon Squeezy (our payment processor) is a Merchant of Record and automatically generates a valid VAT invoice for every purchase. You can download it from your purchase confirmation email.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq7_q">Is there a free trial?</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer" role="region">
+          <div class="faq-answer-inner" data-i18n="faq7_a">There is no time-limited trial, but all purchases come with a 14-day money-back guarantee. If PDF Editor doesn't fit your workflow, just contact us and we'll refund you — no questions asked.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="buy">
+  <div class="section-inner">
+    <h2 data-i18n="cta_h">Ready to own your PDF workflow?</h2>
+    <p data-i18n="cta_sub">One payment. All features. No subscription. No cloud. Yours forever.</p>
+    <div class="final-cta-btns">
+      <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:1.05rem; padding:0.9rem 2rem;" data-i18n="cta_buy">Buy PDF Editor — from 19€</a>
+      <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener" class="btn btn-outline" data-i18n="cta_support">Ask a question</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 PDF Editor. All rights reserved.</span>
+    <span>
+      <a href="https://github.com/Leteint/pdf-editor/issues" target="_blank" rel="noopener" data-i18n="footer_support">Support &amp; Issues</a>
+      &nbsp;·&nbsp;
+      <a href="https://pdfeditor.lemonsqueezy.com" target="_blank" rel="noopener" data-i18n="footer_buy">Buy</a>
+      &nbsp;·&nbsp;
+      <span data-i18n="footer_payment">Payments by</span> <a href="https://lemonsqueezy.com" target="_blank" rel="noopener">Lemon Squeezy</a>
+    </span>
+  </div>
+  <div style="margin-top:0.75rem; font-size:0.8rem;">
+    <a href="terms.html" data-i18n="footer_terms">Terms of Service</a>
+    &nbsp;·&nbsp;
+    <a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
+    &nbsp;·&nbsp;
+    <a href="refund.html" data-i18n="footer_refund">Refund Policy</a>
+  </div>
+</footer>
+
+<script>
+const LANGS = {
+  fr: {
+    nav_features: "Fonctionnalités",
+    nav_compare: "Comparatif",
+    nav_gallery: "Galerie",
+    nav_pricing: "Tarifs",
+    nav_faq: "FAQ",
+    nav_support: "Support",
+    nav_buy: "Acheter — dès 45€",
+    hero_badge: "Achat unique · Sans abonnement",
+    hero_h1: "L'éditeur PDF professionnel\nqui respecte votre budget",
+    hero_sub: "Modifiez, fusionnez, signez, exportez des formulaires en JSON — tout ce qu'il faut, une seule fois. Sans frais mensuels. Sans cloud.",
+    hero_buy: "Acheter — dès 45€",
+    hero_features: "Voir les fonctionnalités ↓",
+    proof_windows: "Windows 10 & 11",
+    proof_onetime: "Achat unique",
+    proof_multilang: "6 langues",
+    proof_updates: "Mises à jour incluses",
+    proof_noads: "Zéro pub — jamais",
+    banner_h: "Arrêtez de payer chaque mois pour votre logiciel PDF",
+    banner_p: "Vous payez <strong>une fois</strong>. Vous le possédez <strong>pour toujours</strong>. Toutes les mises à jour incluses. Pas de cloud. <strong>Zéro publicité</strong> — maintenant et pour toujours.",
+    feat_h: "Tout ce dont vous avez besoin, rien de superflu",
+    feat_sub: "Une boîte à outils complète pour les professionnels qui travaillent avec des PDF chaque jour.",
+    f1_title: "Fusion & Division",
+    f1_desc: "Combinez plusieurs PDF en un seul ou extrayez des pages spécifiques en fichiers séparés en quelques secondes.",
+    f2_title: "Réorganisation des pages",
+    f2_desc: "Glissez-déposez des pages pour les réordonner, les faire pivoter ou les supprimer. Panneau visuel pour un contrôle total.",
+    f3_title: "Édition de texte",
+    f3_desc: "Modifiez directement le texte de vos PDF. Changez les polices, tailles, couleurs — sans passer par Word.",
+    f4_title: "Formulaires + Export JSON",
+    f4_desc: "Remplissez des formulaires PDF et exportez les données en JSON structuré — prêt à injecter dans n'importe quel workflow ou API.",
+    f5_title: "OCR",
+    f5_desc: "Convertissez les documents scannés en PDF entièrement recherchables et sélectionnables.",
+    f6_title: "Signatures numériques",
+    f6_desc: "Signez des documents avec des signatures numériques juridiquement valides, sans abonnement SaaS.",
+    f7_title: "Protection par mot de passe",
+    f7_desc: "Chiffrez les PDF avec des mots de passe forts et définissez des restrictions d'autorisation (impression, copie, édition).",
+    f8_title: "Tampons & Filigranes",
+    f8_desc: "Ajoutez des tampons personnalisés, filigranes et en-têtes/pieds de page sur toutes les pages.",
+    f9_title: "Intégration clic droit Windows",
+    f9_desc: "Fusionnez, convertissez ou ouvrez des PDF directement depuis le menu contextuel de l'Explorateur Windows.",
+    exclusive: "EXCLUSIF",
+    n8n_badge: "Fonctionnalité exclusive",
+    n8n_h: "Connectez vos PDF à vos workflows d'automatisation",
+    n8n_p1: "PDF Editor est le seul outil PDF bureau qui exporte nativement les données de formulaire en JSON structuré — le langage universel de l'automatisation moderne.",
+    n8n_p2: "Connectez-le à <strong style=\"color:var(--text)\">N8N</strong>, <strong style=\"color:var(--text)\">Make</strong> ou <strong style=\"color:var(--text)\">Zapier</strong> pour router automatiquement les soumissions vers votre CRM, base de données ou système de notification — zéro ressaisie.",
+    n8n_p3: "Parfait pour : bons de commande, RH, factures, contrats clients, notes de frais.",
+    n8n_code_label: "Sortie JSON — order_form.pdf",
+    comp_h: "Notre comparatif",
+    comp_sub: "Un comparatif honnête avec les outils PDF les plus populaires.",
+    comp_criteria: "Critère",
+    comp_price: "Prix",
+    comp_price_us: "45€ – 700€/an",
+    comp_price_adobe: "~250€/an",
+    comp_price_xchange: "~60€/an",
+    comp_price_pdf24: "Gratuit (pubs)",
+    comp_reinstall: "Réinstallation gratuite",
+    comp_updates: "Mises à jour incluses",
+    comp_json: "Formulaires + JSON",
+    comp_noads: "Zéro publicité",
+    comp_n8n: "N8N / automatisation",
+    comp_merge: "Fusion / Division",
+    comp_ocr: "OCR",
+    comp_sign: "Signatures numériques",
+    comp_ctx: "Clic droit Windows",
+    comp_ease: "Facilité d'utilisation",
+    comp_ease_us: "⭐⭐⭐⭐⭐",
+    comp_ease_adobe: "⭐⭐⭐",
+    comp_ease_xchange: "⭐⭐⭐",
+    comp_ease_pdf24: "⭐⭐⭐⭐",
+    pricing_h: "Des tarifs simples et transparents",
+    pricing_sub: "Payez une fois. Utilisez pour toujours. Toutes les fonctionnalités. Zéro publicité — jamais.",
+    price_once: "paiement unique",
+    price_annual: "par an",
+    plan1_name: "Solo",
+    plan1_seats: "1 poste",
+    plan2_name: "Équipe",
+    plan2_seats: "5 postes",
+    plan3_name: "Business",
+    plan3_seats: "20 postes",
+    plan4_name: "Entreprise",
+    plan4_seats: "Postes illimités",
+    plan_f1: "Toutes les fonctionnalités",
+    plan_f2: "Réinstallation gratuite",
+    plan_f3: "Mises à jour incluses",
+    plan_f4: "Usage personnel",
+    plan2_f4: "Petites équipes",
+    plan3_f4: "Entreprises moyennes",
+    plan4_f4: "Déploiement illimité",
+    plan_invoice: "Facture fournie",
+    plan3_activations: "20 activations simultanées",
+    plan4_activations: "Activations illimitées",
+    plan_buy: "Acheter",
+    popular: "POPULAIRE",
+    refund_title: "Satisfait ou remboursé 14 jours",
+    refund_sub: "Pas convaincu ? Contactez-nous dans les 14 jours — remboursement intégral, sans justification.",
+    pricing_lemon: "Paiements traités en toute sécurité par <a href=\"https://lemonsqueezy.com\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--muted)\">Lemon Squeezy</a>. TVA incluse si applicable.",
+    faq_h: "Questions fréquentes",
+    faq_sub: "Pas de réponse ? <a href=\"https://github.com/Leteint/pdf-editor/issues\" target=\"_blank\" rel=\"noopener\">Ouvrez une issue sur GitHub</a>",
+    faq1_q: "Puis-je réinstaller sur un nouvel ordinateur ?",
+    faq1_a: "Oui — votre licence est liée à votre compte, pas à votre machine. Vous pouvez désactiver et réactiver sur n'importe quel PC Windows à tout moment, sans contacter le support.",
+    faq2_q: "Les futures mises à jour sont-elles vraiment incluses ?",
+    faq2_a: "Oui. Toutes les mises à jour de la version majeure achetée sont gratuites. Si une nouvelle version majeure est publiée à un prix significativement plus élevé, les clients existants recevront une remise de fidélité importante.",
+    faq3_q: "Fonctionne-t-il hors ligne ?",
+    faq3_a: "PDF Editor est une application de bureau entièrement utilisable hors ligne. La validation de licence nécessite une connexion internet lors de la première activation et périodiquement (tous les 7 jours). Ensuite, il fonctionne sans connexion.",
+    faq4_q: "Est-ce uniquement pour Windows ?",
+    faq4_a: "Actuellement oui — PDF Editor est une application native Windows 10/11. Les versions macOS et Linux sont dans la feuille de route. Votez ou suivez le dépôt GitHub pour être notifié.",
+    faq5_q: "Comment fonctionne l'intégration N8N / automatisation ?",
+    faq5_a: "Lors de l'export JSON, PDF Editor sauvegarde un fichier .json structuré ou peut le poster directement vers une URL webhook. Dans N8N, Make ou Zapier, vous écoutez simplement ce webhook — sans code personnalisé.",
+    faq6_q: "Puis-je obtenir une facture pour mon entreprise ?",
+    faq6_a: "Oui — Lemon Squeezy est marchand de référence et génère automatiquement une facture TVA valide pour chaque achat. Téléchargeable depuis l'e-mail de confirmation.",
+    faq7_q: "Y a-t-il une période d'essai ?",
+    faq7_a: "Il n'y a pas d'essai limité dans le temps, mais tous les achats bénéficient d'une garantie satisfait ou remboursé de 14 jours. Si PDF Editor ne convient pas à votre workflow, contactez-nous et nous vous remboursons — sans question.",
+    cta_h: "Prêt à maîtriser vos PDF ?",
+    cta_sub: "Un paiement. Toutes les fonctionnalités. Sans abonnement. Sans cloud. À vous pour toujours.",
+    cta_buy: "Acheter PDF Editor — dès 45€",
+    cta_support: "Poser une question",
+    footer_support: "Support & Issues",
+    footer_buy: "Acheter",
+    footer_terms: "CGU",
+    footer_privacy: "Confidentialité",
+    footer_refund: "Remboursement",
+    footer_payment: "Paiements par"
+  },
+  en: {
+    nav_features: "Features",
+    nav_compare: "Compare",
+    nav_gallery: "Gallery",
+    nav_pricing: "Pricing",
+    nav_faq: "FAQ",
+    nav_support: "Support",
+    nav_buy: "Buy — from €45",
+    hero_badge: "One-time purchase · No subscription",
+    hero_h1: "The professional PDF editor\nthat respects your wallet",
+    hero_sub: "Edit, merge, sign, extract forms to JSON — everything you need, once. No monthly fees. No cloud required.",
+    hero_buy: "Buy now — from €45",
+    hero_features: "See all features ↓",
+    proof_windows: "Windows 10 & 11",
+    proof_onetime: "One-time purchase",
+    proof_multilang: "6 languages",
+    proof_updates: "Updates included",
+    proof_noads: "Zero ads — ever",
+    banner_h: "Stop paying every month for your PDF software",
+    banner_p: "You pay <strong>once</strong>. You own it <strong>forever</strong>. All updates included. No cloud required. <strong>Zero ads</strong> — now or ever.",
+    feat_h: "Everything you need, nothing you don't",
+    feat_sub: "A complete toolbox built for professionals who work with PDFs every day.",
+    f1_title: "Merge & Split",
+    f1_desc: "Combine multiple PDFs into one or extract specific pages into separate files in seconds.",
+    f2_title: "Page Reorganization",
+    f2_desc: "Drag & drop pages to reorder, rotate, or delete them. Visual page panel for full control.",
+    f3_title: "Text Editing",
+    f3_desc: "Edit text directly in your PDFs. Change fonts, sizes, colors — no roundtrip to Word needed.",
+    f4_title: "Forms + JSON Export",
+    f4_desc: "Fill PDF forms and export field data as structured JSON — ready to inject into any workflow or API.",
+    f5_title: "OCR",
+    f5_desc: "Convert scanned documents and images into fully searchable, selectable text PDFs.",
+    f6_title: "Digital Signatures",
+    f6_desc: "Sign documents with legally valid digital signatures. Send for signature without a SaaS subscription.",
+    f7_title: "Password Protection",
+    f7_desc: "Encrypt PDFs with strong passwords and set permission restrictions (print, copy, edit).",
+    f8_title: "Stamps & Watermarks",
+    f8_desc: "Add custom text or image stamps, watermarks, and headers/footers across all pages.",
+    f9_title: "Windows Right-click Integration",
+    f9_desc: "Merge, convert, or open PDFs directly from Explorer's right-click context menu. No extra steps.",
+    exclusive: "EXCLUSIVE",
+    n8n_badge: "Exclusive feature",
+    n8n_h: "Connect your PDFs to your automation workflows",
+    n8n_p1: "PDF Editor is the only desktop PDF tool that natively exports form data as structured JSON — the lingua franca of modern automation.",
+    n8n_p2: "Connect it to <strong style=\"color:var(--text)\">N8N</strong>, <strong style=\"color:var(--text)\">Make</strong>, or <strong style=\"color:var(--text)\">Zapier</strong> to automatically route form submissions to your CRM, database, or notification system — zero manual re-entry.",
+    n8n_p3: "Perfect for: order forms, HR onboarding, invoices, client contracts, expense reports.",
+    n8n_code_label: "JSON output — order_form.pdf",
+    comp_h: "How we compare",
+    comp_sub: "An honest side-by-side comparison with the most popular PDF tools.",
+    comp_criteria: "Criteria",
+    comp_price: "Price",
+    comp_price_us: "€45 – €700/yr",
+    comp_price_adobe: "~€250/year",
+    comp_price_xchange: "~€60/year",
+    comp_price_pdf24: "Free (ads)",
+    comp_reinstall: "Free reinstall",
+    comp_updates: "Updates included",
+    comp_json: "Forms + JSON export",
+    comp_noads: "Zero ads",
+    comp_n8n: "N8N / automation",
+    comp_merge: "Merge / Split",
+    comp_ocr: "OCR",
+    comp_sign: "Digital signatures",
+    comp_ctx: "Windows right-click",
+    comp_ease: "Ease of use",
+    comp_ease_us: "⭐⭐⭐⭐⭐",
+    comp_ease_adobe: "⭐⭐⭐",
+    comp_ease_xchange: "⭐⭐⭐",
+    comp_ease_pdf24: "⭐⭐⭐⭐",
+    pricing_h: "Simple, honest pricing",
+    pricing_sub: "Pay once. Use forever. All features included. Zero ads — now or ever.",
+    price_once: "one-time payment",
+    price_annual: "per year",
+    plan1_name: "Solo",
+    plan1_seats: "1 seat",
+    plan2_name: "Team",
+    plan2_seats: "5 seats",
+    plan3_name: "Business",
+    plan3_seats: "20 seats",
+    plan4_name: "Enterprise",
+    plan4_seats: "Unlimited seats",
+    plan_f1: "All features included",
+    plan_f2: "Free reinstall anytime",
+    plan_f3: "Updates included",
+    plan_f4: "Personal use",
+    plan2_f4: "Small teams",
+    plan3_f4: "Medium businesses",
+    plan4_f4: "Unlimited deployment",
+    plan_invoice: "Invoice provided",
+    plan3_activations: "20 simultaneous activations",
+    plan4_activations: "Unlimited activations",
+    plan_buy: "Buy now",
+    popular: "POPULAR",
+    refund_title: "14-day money-back guarantee",
+    refund_sub: "Not satisfied? Contact us within 14 days — full refund, no questions asked.",
+    pricing_lemon: "Payments processed securely by <a href=\"https://lemonsqueezy.com\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--muted)\">Lemon Squeezy</a>. VAT included where applicable.",
+    faq_h: "Frequently asked questions",
+    faq_sub: "Can't find your answer? <a href=\"https://github.com/Leteint/pdf-editor/issues\" target=\"_blank\" rel=\"noopener\">Open an issue on GitHub</a>",
+    faq1_q: "Can I reinstall on a new computer?",
+    faq1_a: "Yes — your license is tied to your account, not your machine. You can deactivate and reactivate on any Windows PC at any time, without contacting support.",
+    faq2_q: "Are future updates really included?",
+    faq2_a: "Yes. All updates within the major version you purchased are free. If a major new version is ever released at a significantly higher price point, existing customers will receive a substantial loyalty discount.",
+    faq3_q: "Does it work offline?",
+    faq3_a: "PDF Editor is a fully offline-capable desktop application. License validation requires an internet connection on first activation and periodically (every 7 days). After that, it works without any connection.",
+    faq4_q: "Is it Windows only?",
+    faq4_a: "Currently yes — PDF Editor is a native Windows 10/11 application. macOS and Linux versions are on the roadmap. Vote or watch the GitHub repository to be notified.",
+    faq5_q: "How does the N8N / automation integration work?",
+    faq5_a: "When you export form data as JSON, PDF Editor saves a structured .json file or can POST it directly to a webhook URL of your choice. In N8N, Make, or Zapier, you simply listen on that webhook — no custom code required.",
+    faq6_q: "Can I get an invoice for my company?",
+    faq6_a: "Yes — Lemon Squeezy (our payment processor) is a Merchant of Record and automatically generates a valid VAT invoice for every purchase. You can download it from your purchase confirmation email.",
+    faq7_q: "Is there a free trial?",
+    faq7_a: "There is no time-limited trial, but all purchases come with a 14-day money-back guarantee. If PDF Editor doesn't fit your workflow, just contact us and we'll refund you — no questions asked.",
+    cta_h: "Ready to own your PDF workflow?",
+    cta_sub: "One payment. All features. No subscription. No cloud. Yours forever.",
+    cta_buy: "Buy PDF Editor — from €45",
+    cta_support: "Ask a question",
+    footer_support: "Support & Issues",
+    footer_buy: "Buy",
+    footer_terms: "Terms of Service",
+    footer_privacy: "Privacy Policy",
+    footer_refund: "Refund Policy",
+    footer_payment: "Payments by"
+  },
+  es: {
+    nav_features: "Funciones",
+    nav_compare: "Comparar",
+    nav_gallery: "Galería",
+    nav_pricing: "Precios",
+    nav_faq: "FAQ",
+    nav_support: "Soporte",
+    nav_buy: "Comprar — desde 45€",
+    hero_badge: "Pago único · Sin suscripción",
+    hero_h1: "El editor PDF profesional\nque respeta tu bolsillo",
+    hero_sub: "Edita, fusiona, firma, exporta formularios a JSON — todo lo que necesitas, una sola vez. Sin cuotas mensuales. Sin nube.",
+    hero_buy: "Comprar ahora — desde 45€",
+    hero_features: "Ver todas las funciones ↓",
+    proof_windows: "Windows 10 y 11",
+    proof_onetime: "Pago único",
+    proof_multilang: "6 idiomas",
+    proof_updates: "Actualizaciones incluidas",
+    proof_noads: "Sin publicidad — nunca",
+    banner_h: "Deja de pagar cada mes por tu software PDF",
+    banner_p: "Pagas <strong>una vez</strong>. Lo tienes <strong>para siempre</strong>. Todas las actualizaciones incluidas. Sin nube. <strong>Sin publicidad</strong> — ahora ni nunca.",
+    feat_h: "Todo lo que necesitas, nada más",
+    feat_sub: "Una caja de herramientas completa para profesionales que trabajan con PDFs a diario.",
+    f1_title: "Fusionar y dividir",
+    f1_desc: "Combina varios PDFs en uno o extrae páginas específicas en archivos separados en segundos.",
+    f2_title: "Reorganización de páginas",
+    f2_desc: "Arrastra y suelta páginas para reordenarlas, rotarlas o eliminarlas. Panel visual para control total.",
+    f3_title: "Edición de texto",
+    f3_desc: "Edita el texto directamente en tus PDFs. Cambia fuentes, tamaños, colores — sin pasar por Word.",
+    f4_title: "Formularios + Exportar JSON",
+    f4_desc: "Rellena formularios PDF y exporta los datos como JSON estructurado — listo para inyectar en cualquier workflow o API.",
+    f5_title: "OCR",
+    f5_desc: "Convierte documentos escaneados e imágenes en PDFs con texto totalmente buscable y seleccionable.",
+    f6_title: "Firmas digitales",
+    f6_desc: "Firma documentos con firmas digitales legalmente válidas, sin suscripción SaaS.",
+    f7_title: "Protección con contraseña",
+    f7_desc: "Cifra PDFs con contraseñas fuertes y establece restricciones de permisos (impresión, copia, edición).",
+    f8_title: "Sellos y marcas de agua",
+    f8_desc: "Añade sellos personalizados de texto o imagen, marcas de agua y encabezados/pies de página en todas las páginas.",
+    f9_title: "Integración clic derecho Windows",
+    f9_desc: "Fusiona, convierte o abre PDFs directamente desde el menú contextual del Explorador de Windows.",
+    exclusive: "EXCLUSIVO",
+    n8n_badge: "Función exclusiva",
+    n8n_h: "Conecta tus PDFs a tus flujos de automatización",
+    n8n_p1: "PDF Editor es la única herramienta PDF de escritorio que exporta nativamente datos de formulario como JSON estructurado.",
+    n8n_p2: "Conéctalo a <strong style=\"color:var(--text)\">N8N</strong>, <strong style=\"color:var(--text)\">Make</strong> o <strong style=\"color:var(--text)\">Zapier</strong> para enrutar automáticamente los envíos a tu CRM, base de datos o sistema de notificación — cero reintroducción manual.",
+    n8n_p3: "Perfecto para: pedidos, RRHH, facturas, contratos, informes de gastos.",
+    n8n_code_label: "Salida JSON — order_form.pdf",
+    comp_h: "Cómo nos comparamos",
+    comp_sub: "Una comparativa honesta con las herramientas PDF más populares.",
+    comp_criteria: "Criterio",
+    comp_price: "Precio",
+    comp_price_us: "45€ – 700€/año",
+    comp_price_adobe: "~250€/año",
+    comp_price_xchange: "~60€/año",
+    comp_price_pdf24: "Gratis (anuncios)",
+    comp_reinstall: "Reinstalación gratuita",
+    comp_updates: "Actualizaciones incluidas",
+    comp_json: "Formularios + JSON",
+    comp_noads: "Sin publicidad",
+    comp_n8n: "N8N / automatización",
+    comp_merge: "Fusionar / Dividir",
+    comp_ocr: "OCR",
+    comp_sign: "Firmas digitales",
+    comp_ctx: "Clic derecho Windows",
+    comp_ease: "Facilidad de uso",
+    comp_ease_us: "⭐⭐⭐⭐⭐",
+    comp_ease_adobe: "⭐⭐⭐",
+    comp_ease_xchange: "⭐⭐⭐",
+    comp_ease_pdf24: "⭐⭐⭐⭐",
+    pricing_h: "Precios simples y honestos",
+    pricing_sub: "Paga una vez. Úsalo para siempre. Todo incluido. Sin publicidad — nunca.",
+    price_once: "pago único",
+    price_annual: "por año",
+    plan1_name: "Solo",
+    plan1_seats: "1 puesto",
+    plan2_name: "Equipo",
+    plan2_seats: "5 puestos",
+    plan3_name: "Business",
+    plan3_seats: "20 puestos",
+    plan4_name: "Empresa",
+    plan4_seats: "Puestos ilimitados",
+    plan_f1: "Todas las funciones incluidas",
+    plan_f2: "Reinstalación gratuita",
+    plan_f3: "Actualizaciones incluidas",
+    plan_f4: "Uso personal",
+    plan2_f4: "Equipos pequeños",
+    plan3_f4: "Empresas medianas",
+    plan4_f4: "Despliegue ilimitado",
+    plan_invoice: "Factura incluida",
+    plan3_activations: "20 activaciones simultáneas",
+    plan4_activations: "Activaciones ilimitadas",
+    plan_buy: "Comprar",
+    popular: "POPULAR",
+    refund_title: "Garantía de devolución de 14 días",
+    refund_sub: "¿No estás satisfecho? Contáctanos en 14 días — reembolso completo, sin preguntas.",
+    pricing_lemon: "Pagos procesados de forma segura por <a href=\"https://lemonsqueezy.com\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--muted)\">Lemon Squeezy</a>. IVA incluido cuando corresponda.",
+    faq_h: "Preguntas frecuentes",
+    faq_sub: "¿No encuentras respuesta? <a href=\"https://github.com/Leteint/pdf-editor/issues\" target=\"_blank\" rel=\"noopener\">Abre un issue en GitHub</a>",
+    faq1_q: "¿Puedo reinstalar en un ordenador nuevo?",
+    faq1_a: "Sí — tu licencia está vinculada a tu cuenta, no a tu máquina. Puedes desactivar y reactivar en cualquier PC con Windows en cualquier momento, sin contactar al soporte.",
+    faq2_q: "¿Las actualizaciones futuras están realmente incluidas?",
+    faq2_a: "Sí. Todas las actualizaciones de la versión principal que compraste son gratuitas. Si se lanza una nueva versión principal a un precio significativamente mayor, los clientes existentes recibirán un importante descuento de fidelidad.",
+    faq3_q: "¿Funciona sin conexión?",
+    faq3_a: "PDF Editor es una aplicación de escritorio totalmente funcional sin conexión. La validación de licencia requiere internet en la primera activación y periódicamente (cada 7 días). Después, funciona sin conexión.",
+    faq4_q: "¿Es solo para Windows?",
+    faq4_a: "Por ahora sí — PDF Editor es una aplicación nativa de Windows 10/11. Las versiones de macOS y Linux están en la hoja de ruta. Sigue el repositorio de GitHub para recibir notificaciones.",
+    faq5_q: "¿Cómo funciona la integración con N8N / automatización?",
+    faq5_a: "Al exportar datos del formulario como JSON, PDF Editor guarda un archivo .json estructurado o puede enviarlo directamente a una URL webhook. En N8N, Make o Zapier, simplemente escuchas ese webhook — sin código personalizado.",
+    faq6_q: "¿Puedo obtener una factura para mi empresa?",
+    faq6_a: "Sí — Lemon Squeezy es Merchant of Record y genera automáticamente una factura IVA válida para cada compra. Puedes descargarla desde el correo de confirmación de compra.",
+    faq7_q: "¿Hay un período de prueba gratuito?",
+    faq7_a: "No hay prueba limitada en el tiempo, pero todas las compras incluyen una garantía de devolución de dinero de 14 días. Si PDF Editor no se adapta a tu flujo de trabajo, contáctanos y te reembolsamos sin preguntas.",
+    cta_h: "¿Listo para dominar tus PDFs?",
+    cta_sub: "Un pago. Todas las funciones. Sin suscripción. Sin nube. Tuyo para siempre.",
+    cta_buy: "Comprar PDF Editor — desde 45€",
+    cta_support: "Hacer una pregunta",
+    footer_support: "Soporte & Issues",
+    footer_buy: "Comprar",
+    footer_terms: "Condiciones de uso",
+    footer_privacy: "Privacidad",
+    footer_refund: "Reembolso",
+    footer_payment: "Pagos por"
+  },
+  de: {
+    nav_features: "Funktionen",
+    nav_compare: "Vergleich",
+    nav_gallery: "Galerie",
+    nav_pricing: "Preise",
+    nav_faq: "FAQ",
+    nav_support: "Support",
+    nav_buy: "Kaufen — ab 45€",
+    hero_badge: "Einmalzahlung · Kein Abo",
+    hero_h1: "Der professionelle PDF-Editor,\nder Ihr Budget respektiert",
+    hero_sub: "Bearbeiten, zusammenführen, signieren, Formulare als JSON exportieren — alles was Sie brauchen, einmalig. Keine monatlichen Gebühren. Keine Cloud.",
+    hero_buy: "Jetzt kaufen — ab 45€",
+    hero_features: "Alle Funktionen ansehen ↓",
+    proof_windows: "Windows 10 & 11",
+    proof_onetime: "Einmalzahlung",
+    proof_multilang: "6 Sprachen",
+    proof_updates: "Updates inklusive",
+    proof_noads: "Keine Werbung — nie",
+    banner_h: "Hören Sie auf, monatlich für Ihre PDF-Software zu zahlen",
+    banner_p: "Sie zahlen <strong>einmal</strong>. Sie besitzen es <strong>für immer</strong>. Alle Updates inklusive. Kein Cloud-Zwang. <strong>Null Werbung</strong> — jetzt und für immer.",
+    feat_h: "Alles was Sie brauchen, nichts was Sie nicht brauchen",
+    feat_sub: "Ein vollständiges Werkzeugset für Profis, die täglich mit PDFs arbeiten.",
+    f1_title: "Zusammenführen & Teilen",
+    f1_desc: "Mehrere PDFs in einem zusammenführen oder bestimmte Seiten in Sekundenschnelle in separate Dateien extrahieren.",
+    f2_title: "Seitenorganisation",
+    f2_desc: "Seiten per Drag & Drop neu anordnen, drehen oder löschen. Visuelles Seitenpanel für volle Kontrolle.",
+    f3_title: "Textbearbeitung",
+    f3_desc: "Text direkt in Ihren PDFs bearbeiten. Schriftarten, Größen, Farben ändern — kein Umweg über Word.",
+    f4_title: "Formulare + JSON-Export",
+    f4_desc: "PDF-Formulare ausfüllen und Felddaten als strukturiertes JSON exportieren — bereit für jeden Workflow oder jede API.",
+    f5_title: "OCR",
+    f5_desc: "Gescannte Dokumente und Bilder in vollständig durchsuchbare, auswählbare Text-PDFs konvertieren.",
+    f6_title: "Digitale Signaturen",
+    f6_desc: "Dokumente mit rechtsgültigen digitalen Signaturen unterzeichnen — ohne SaaS-Abonnement.",
+    f7_title: "Passwortschutz",
+    f7_desc: "PDFs mit starken Passwörtern verschlüsseln und Berechtigungseinschränkungen festlegen (Drucken, Kopieren, Bearbeiten).",
+    f8_title: "Stempel & Wasserzeichen",
+    f8_desc: "Benutzerdefinierte Text- oder Bildstempel, Wasserzeichen und Kopf-/Fußzeilen auf allen Seiten hinzufügen.",
+    f9_title: "Windows-Rechtsklick-Integration",
+    f9_desc: "PDFs direkt aus dem Kontextmenü des Windows-Explorers zusammenführen, konvertieren oder öffnen.",
+    exclusive: "EXKLUSIV",
+    n8n_badge: "Exklusive Funktion",
+    n8n_h: "Verbinden Sie Ihre PDFs mit Ihren Automatisierungs-Workflows",
+    n8n_p1: "PDF Editor ist das einzige Desktop-PDF-Tool, das Formulardaten nativ als strukturiertes JSON exportiert.",
+    n8n_p2: "Verbinden Sie es mit <strong style=\"color:var(--text)\">N8N</strong>, <strong style=\"color:var(--text)\">Make</strong> oder <strong style=\"color:var(--text)\">Zapier</strong>, um Formularübermittlungen automatisch an Ihr CRM, Ihre Datenbank oder Ihr Benachrichtigungssystem weiterzuleiten — null manuelle Nacherfassung.",
+    n8n_p3: "Perfekt für: Bestellformulare, HR-Onboarding, Rechnungen, Kundenverträge, Spesenberichte.",
+    n8n_code_label: "JSON-Ausgabe — order_form.pdf",
+    comp_h: "So schneiden wir ab",
+    comp_sub: "Ein ehrlicher Vergleich mit den beliebtesten PDF-Tools.",
+    comp_criteria: "Kriterium",
+    comp_price: "Preis",
+    comp_price_us: "45€ – 700€/Jahr",
+    comp_price_adobe: "~250€/Jahr",
+    comp_price_xchange: "~60€/Jahr",
+    comp_price_pdf24: "Kostenlos (Werbung)",
+    comp_reinstall: "Kostenlose Neuinstallation",
+    comp_updates: "Updates inklusive",
+    comp_json: "Formulare + JSON",
+    comp_noads: "Keine Werbung",
+    comp_n8n: "N8N / Automatisierung",
+    comp_merge: "Zusammenführen / Teilen",
+    comp_ocr: "OCR",
+    comp_sign: "Digitale Signaturen",
+    comp_ctx: "Windows-Rechtsklick",
+    comp_ease: "Benutzerfreundlichkeit",
+    comp_ease_us: "⭐⭐⭐⭐⭐",
+    comp_ease_adobe: "⭐⭐⭐",
+    comp_ease_xchange: "⭐⭐⭐",
+    comp_ease_pdf24: "⭐⭐⭐⭐",
+    pricing_h: "Einfache, transparente Preise",
+    pricing_sub: "Einmal zahlen. Für immer nutzen. Alles inklusive. Keine Werbung — nie.",
+    price_once: "Einmalzahlung",
+    price_annual: "pro Jahr",
+    plan1_name: "Solo",
+    plan1_seats: "1 Arbeitsplatz",
+    plan2_name: "Team",
+    plan2_seats: "5 Arbeitsplätze",
+    plan3_name: "Business",
+    plan3_seats: "20 Arbeitsplätze",
+    plan4_name: "Enterprise",
+    plan4_seats: "Unbegrenzte Arbeitsplätze",
+    plan_f1: "Alle Funktionen inklusive",
+    plan_f2: "Kostenlose Neuinstallation",
+    plan_f3: "Updates inklusive",
+    plan_f4: "Persönliche Nutzung",
+    plan2_f4: "Kleine Teams",
+    plan3_f4: "Mittelständische Unternehmen",
+    plan4_f4: "Unbegrenzte Bereitstellung",
+    plan_invoice: "Rechnung inklusive",
+    plan3_activations: "20 gleichzeitige Aktivierungen",
+    plan4_activations: "Unbegrenzte Aktivierungen",
+    plan_buy: "Jetzt kaufen",
+    popular: "BELIEBT",
+    refund_title: "14 Tage Geld-zurück-Garantie",
+    refund_sub: "Nicht zufrieden? Kontaktieren Sie uns innerhalb von 14 Tagen — volle Rückerstattung, keine Fragen.",
+    pricing_lemon: "Zahlungen werden sicher verarbeitet von <a href=\"https://lemonsqueezy.com\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--muted)\">Lemon Squeezy</a>. MwSt. inklusive, wo zutreffend.",
+    faq_h: "Häufig gestellte Fragen",
+    faq_sub: "Keine Antwort gefunden? <a href=\"https://github.com/Leteint/pdf-editor/issues\" target=\"_blank\" rel=\"noopener\">Issue auf GitHub öffnen</a>",
+    faq1_q: "Kann ich auf einem neuen Computer neu installieren?",
+    faq1_a: "Ja — Ihre Lizenz ist an Ihr Konto gebunden, nicht an Ihren Computer. Sie können auf jedem Windows-PC jederzeit deaktivieren und reaktivieren, ohne den Support zu kontaktieren.",
+    faq2_q: "Sind zukünftige Updates wirklich inklusive?",
+    faq2_a: "Ja. Alle Updates der gekauften Hauptversion sind kostenlos. Wenn eine neue Hauptversion zu einem deutlich höheren Preis veröffentlicht wird, erhalten Bestandskunden einen erheblichen Treuerabatt.",
+    faq3_q: "Funktioniert es offline?",
+    faq3_a: "PDF Editor ist eine vollständig offline-fähige Desktop-Anwendung. Die Lizenzvalidierung erfordert eine Internetverbindung bei der Erstaktivierung und regelmäßig (alle 7 Tage). Danach funktioniert sie ohne Verbindung.",
+    faq4_q: "Ist es nur für Windows?",
+    faq4_a: "Derzeit ja — PDF Editor ist eine native Windows 10/11-Anwendung. macOS- und Linux-Versionen sind in der Roadmap. Folgen Sie dem GitHub-Repository für Benachrichtigungen.",
+    faq5_q: "Wie funktioniert die N8N-/Automatisierungsintegration?",
+    faq5_a: "Beim JSON-Export speichert PDF Editor eine strukturierte .json-Datei oder kann sie direkt per POST an eine Webhook-URL senden. In N8N, Make oder Zapier hören Sie einfach auf diesen Webhook — kein benutzerdefinierter Code erforderlich.",
+    faq6_q: "Kann ich eine Rechnung für mein Unternehmen erhalten?",
+    faq6_a: "Ja — Lemon Squeezy ist Merchant of Record und generiert automatisch eine gültige Mehrwertsteuerrechnung für jeden Kauf. Diese kann aus der Kaufbestätigungs-E-Mail heruntergeladen werden.",
+    faq7_q: "Gibt es eine kostenlose Testversion?",
+    faq7_a: "Es gibt keine zeitlich begrenzte Testversion, aber alle Käufe beinhalten eine 14-tägige Geld-zurück-Garantie. Wenn PDF Editor nicht zu Ihrem Workflow passt, kontaktieren Sie uns einfach und wir erstatten Ihnen den Betrag — ohne Fragen.",
+    cta_h: "Bereit, Ihren PDF-Workflow zu meistern?",
+    cta_sub: "Eine Zahlung. Alle Funktionen. Kein Abo. Keine Cloud. Für immer Ihrer.",
+    cta_buy: "PDF Editor kaufen — ab 45€",
+    cta_support: "Frage stellen",
+    footer_support: "Support & Issues",
+    footer_buy: "Kaufen",
+    footer_terms: "Nutzungsbedingungen",
+    footer_privacy: "Datenschutz",
+    footer_refund: "Rückerstattung",
+    footer_payment: "Zahlung via"
+  },
+  pt: {
+    nav_features: "Funcionalidades",
+    nav_compare: "Comparar",
+    nav_gallery: "Galeria",
+    nav_pricing: "Preços",
+    nav_faq: "FAQ",
+    nav_support: "Suporte",
+    nav_buy: "Comprar — a partir de 45€",
+    hero_badge: "Pagamento único · Sem subscrição",
+    hero_h1: "O editor PDF profissional\nque respeita o seu orçamento",
+    hero_sub: "Edite, una, assine, exporte formulários para JSON — tudo o que precisa, uma única vez. Sem taxas mensais. Sem cloud.",
+    hero_buy: "Comprar agora — a partir de 45€",
+    hero_features: "Ver todas as funcionalidades ↓",
+    proof_windows: "Windows 10 e 11",
+    proof_onetime: "Pagamento único",
+    proof_multilang: "6 idiomas",
+    proof_updates: "Atualizações incluídas",
+    proof_noads: "Zero publicidade — nunca",
+    banner_h: "Pare de pagar todos os meses pelo seu software PDF",
+    banner_p: "Paga <strong>uma vez</strong>. É seu <strong>para sempre</strong>. Todas as atualizações incluídas. Sem cloud. <strong>Zero publicidade</strong> — agora e para sempre.",
+    feat_h: "Tudo o que precisa, nada do que não precisa",
+    feat_sub: "Uma caixa de ferramentas completa para profissionais que trabalham com PDFs todos os dias.",
+    f1_title: "Unir e Dividir",
+    f1_desc: "Combine vários PDFs num só ou extraia páginas específicas para ficheiros separados em segundos.",
+    f2_title: "Reorganização de Páginas",
+    f2_desc: "Arraste e solte páginas para as reordenar, rodar ou eliminar. Painel visual para controlo total.",
+    f3_title: "Edição de Texto",
+    f3_desc: "Edite texto diretamente nos seus PDFs. Mude fontes, tamanhos, cores — sem passar pelo Word.",
+    f4_title: "Formulários + Exportar JSON",
+    f4_desc: "Preencha formulários PDF e exporte dados de campos como JSON estruturado — pronto para injetar em qualquer workflow ou API.",
+    f5_title: "OCR",
+    f5_desc: "Converta documentos digitalizados e imagens em PDFs totalmente pesquisáveis e selecionáveis.",
+    f6_title: "Assinaturas Digitais",
+    f6_desc: "Assine documentos com assinaturas digitais legalmente válidas, sem subscrição SaaS.",
+    f7_title: "Proteção por Palavra-passe",
+    f7_desc: "Encripte PDFs com palavras-passe fortes e defina restrições de permissão (impressão, cópia, edição).",
+    f8_title: "Carimbos e Marcas de Água",
+    f8_desc: "Adicione carimbos personalizados, marcas de água e cabeçalhos/rodapés em todas as páginas.",
+    f9_title: "Integração no Menu de Contexto do Windows",
+    f9_desc: "Una, converta ou abra PDFs diretamente a partir do menu de contexto do Explorador do Windows.",
+    exclusive: "EXCLUSIVO",
+    n8n_badge: "Funcionalidade exclusiva",
+    n8n_h: "Conecte os seus PDFs aos seus workflows de automatização",
+    n8n_p1: "PDF Editor é a única ferramenta PDF de secretária que exporta nativamente dados de formulário como JSON estruturado.",
+    n8n_p2: "Conecte-o ao <strong style=\"color:var(--text)\">N8N</strong>, <strong style=\"color:var(--text)\">Make</strong> ou <strong style=\"color:var(--text)\">Zapier</strong> para encaminhar automaticamente submissões para o seu CRM, base de dados ou sistema de notificação — zero reintrodução manual.",
+    n8n_p3: "Perfeito para: formulários de encomenda, RH, faturas, contratos, relatórios de despesas.",
+    n8n_code_label: "Saída JSON — order_form.pdf",
+    comp_h: "Como nos comparamos",
+    comp_sub: "Uma comparação honesta com as ferramentas PDF mais populares.",
+    comp_criteria: "Critério",
+    comp_price: "Preço",
+    comp_price_us: "45€ – 700€/ano",
+    comp_price_adobe: "~250€/ano",
+    comp_price_xchange: "~60€/ano",
+    comp_price_pdf24: "Grátis (anúncios)",
+    comp_reinstall: "Reinstalação gratuita",
+    comp_updates: "Atualizações incluídas",
+    comp_json: "Formulários + JSON",
+    comp_noads: "Zero publicidade",
+    comp_n8n: "N8N / automatização",
+    comp_merge: "Unir / Dividir",
+    comp_ocr: "OCR",
+    comp_sign: "Assinaturas digitais",
+    comp_ctx: "Menu contexto Windows",
+    comp_ease: "Facilidade de uso",
+    comp_ease_us: "⭐⭐⭐⭐⭐",
+    comp_ease_adobe: "⭐⭐⭐",
+    comp_ease_xchange: "⭐⭐⭐",
+    comp_ease_pdf24: "⭐⭐⭐⭐",
+    pricing_h: "Preços simples e transparentes",
+    pricing_sub: "Pague uma vez. Use para sempre. Tudo incluído. Zero publicidade — nunca.",
+    price_once: "pagamento único",
+    price_annual: "por ano",
+    plan1_name: "Solo",
+    plan1_seats: "1 licença",
+    plan2_name: "Equipa",
+    plan2_seats: "5 licenças",
+    plan3_name: "Business",
+    plan3_seats: "20 licenças",
+    plan4_name: "Enterprise",
+    plan4_seats: "Licenças ilimitadas",
+    plan_f1: "Todas as funcionalidades incluídas",
+    plan_f2: "Reinstalação gratuita",
+    plan_f3: "Atualizações incluídas",
+    plan_f4: "Uso pessoal",
+    plan2_f4: "Pequenas equipas",
+    plan3_f4: "Empresas médias",
+    plan4_f4: "Implementação ilimitada",
+    plan_invoice: "Fatura incluída",
+    plan3_activations: "20 ativações simultâneas",
+    plan4_activations: "Ativações ilimitadas",
+    plan_buy: "Comprar",
+    popular: "POPULAR",
+    refund_title: "Garantia de reembolso de 14 dias",
+    refund_sub: "Não está satisfeito? Contacte-nos em 14 dias — reembolso total, sem perguntas.",
+    pricing_lemon: "Pagamentos processados com segurança por <a href=\"https://lemonsqueezy.com\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--muted)\">Lemon Squeezy</a>. IVA incluído quando aplicável.",
+    faq_h: "Perguntas frequentes",
+    faq_sub: "Não encontrou resposta? <a href=\"https://github.com/Leteint/pdf-editor/issues\" target=\"_blank\" rel=\"noopener\">Abra um issue no GitHub</a>",
+    faq1_q: "Posso reinstalar num novo computador?",
+    faq1_a: "Sim — a sua licença está associada à sua conta, não à sua máquina. Pode desativar e reativar em qualquer PC com Windows a qualquer momento, sem contactar o suporte.",
+    faq2_q: "As futuras atualizações estão realmente incluídas?",
+    faq2_a: "Sim. Todas as atualizações da versão principal que adquiriu são gratuitas. Se uma nova versão principal for lançada a um preço significativamente mais alto, os clientes existentes receberão um desconto de fidelidade substancial.",
+    faq3_q: "Funciona offline?",
+    faq3_a: "PDF Editor é uma aplicação de secretária totalmente funcional offline. A validação de licença requer internet na primeira ativação e periodicamente (a cada 7 dias). Depois disso, funciona sem qualquer ligação.",
+    faq4_q: "É apenas para Windows?",
+    faq4_a: "Por enquanto sim — PDF Editor é uma aplicação nativa Windows 10/11. As versões para macOS e Linux estão no roadmap. Siga o repositório GitHub para ser notificado.",
+    faq5_q: "Como funciona a integração com N8N / automatização?",
+    faq5_a: "Ao exportar dados de formulário como JSON, PDF Editor guarda um ficheiro .json estruturado ou pode enviá-lo diretamente para um URL webhook. No N8N, Make ou Zapier, basta escutar esse webhook — sem código personalizado.",
+    faq6_q: "Posso obter uma fatura para a minha empresa?",
+    faq6_a: "Sim — Lemon Squeezy é Merchant of Record e gera automaticamente uma fatura IVA válida para cada compra. Pode descarregá-la a partir do email de confirmação de compra.",
+    faq7_q: "Existe um período de avaliação gratuito?",
+    faq7_a: "Não existe avaliação com limite de tempo, mas todas as compras incluem uma garantia de reembolso de 14 dias. Se PDF Editor não se adaptar ao seu workflow, contacte-nos e reembolsamos sem questões.",
+    cta_h: "Pronto para dominar os seus PDFs?",
+    cta_sub: "Um pagamento. Todas as funcionalidades. Sem subscrição. Sem cloud. Seu para sempre.",
+    cta_buy: "Comprar PDF Editor — a partir de 45€",
+    cta_support: "Fazer uma pergunta",
+    footer_support: "Suporte & Issues",
+    footer_buy: "Comprar",
+    footer_terms: "Termos de Uso",
+    footer_privacy: "Privacidade",
+    footer_refund: "Reembolso",
+    footer_payment: "Pagamentos por"
+  },
+  ru: {
+    nav_features: "Функции",
+    nav_compare: "Сравнение",
+    nav_gallery: "Галерея",
+    nav_pricing: "Цены",
+    nav_faq: "FAQ",
+    nav_support: "Поддержка",
+    nav_buy: "Купить — от 45€",
+    hero_badge: "Единовременная покупка · Без подписки",
+    hero_h1: "Профессиональный редактор PDF,\nкоторый уважает ваш бюджет",
+    hero_sub: "Редактируйте, объединяйте, подписывайте, экспортируйте формы в JSON — всё что нужно, один раз. Без ежемесячных платежей. Без облака.",
+    hero_buy: "Купить сейчас — от 45€",
+    hero_features: "Все функции ↓",
+    proof_windows: "Windows 10 и 11",
+    proof_onetime: "Единовременная покупка",
+    proof_multilang: "6 языков",
+    proof_updates: "Обновления включены",
+    proof_noads: "Ноль рекламы — никогда",
+    banner_h: "Перестаньте платить каждый месяц за PDF-программу",
+    banner_p: "Платите <strong>один раз</strong>. Владеете <strong>навсегда</strong>. Все обновления включены. Без облака. <strong>Ноль рекламы</strong> — сейчас и всегда.",
+    feat_h: "Всё необходимое, ничего лишнего",
+    feat_sub: "Полный набор инструментов для профессионалов, ежедневно работающих с PDF.",
+    f1_title: "Объединение и разделение",
+    f1_desc: "Объединяйте несколько PDF в один или извлекайте страницы в отдельные файлы за секунды.",
+    f2_title: "Реорганизация страниц",
+    f2_desc: "Перетаскивайте страницы для изменения порядка, поворота или удаления. Визуальная панель страниц.",
+    f3_title: "Редактирование текста",
+    f3_desc: "Редактируйте текст прямо в PDF. Меняйте шрифты, размеры, цвета — без переноса в Word.",
+    f4_title: "Формы + Экспорт JSON",
+    f4_desc: "Заполняйте PDF-формы и экспортируйте данные полей как структурированный JSON — готово для любого API или workflow.",
+    f5_title: "OCR",
+    f5_desc: "Конвертируйте отсканированные документы и изображения в полностью редактируемые PDF с поиском.",
+    f6_title: "Цифровые подписи",
+    f6_desc: "Подписывайте документы юридически значимыми цифровыми подписями без SaaS-подписки.",
+    f7_title: "Защита паролем",
+    f7_desc: "Шифруйте PDF надёжными паролями и устанавливайте ограничения (печать, копирование, редактирование).",
+    f8_title: "Штампы и водяные знаки",
+    f8_desc: "Добавляйте пользовательские штампы, водяные знаки, колонтитулы на всех страницах.",
+    f9_title: "Интеграция в контекстное меню Windows",
+    f9_desc: "Объединяйте, конвертируйте или открывайте PDF прямо из контекстного меню Проводника Windows.",
+    exclusive: "ЭКСКЛЮЗИВ",
+    n8n_badge: "Эксклюзивная функция",
+    n8n_h: "Подключите PDF к вашим рабочим процессам автоматизации",
+    n8n_p1: "PDF Editor — единственный настольный PDF-инструмент, который нативно экспортирует данные форм как структурированный JSON.",
+    n8n_p2: "Подключите его к <strong style=\"color:var(--text)\">N8N</strong>, <strong style=\"color:var(--text)\">Make</strong> или <strong style=\"color:var(--text)\">Zapier</strong> для автоматической маршрутизации форм в CRM, базу данных или систему уведомлений — ноль ручного ввода.",
+    n8n_p3: "Идеально для: бланков заказов, HR, счетов, договоров, авансовых отчётов.",
+    n8n_code_label: "JSON-вывод — order_form.pdf",
+    comp_h: "Сравнение с конкурентами",
+    comp_sub: "Честное сравнение с самыми популярными PDF-инструментами.",
+    comp_criteria: "Критерий",
+    comp_price: "Цена",
+    comp_price_us: "45€ – 700€/год",
+    comp_price_adobe: "~250€/год",
+    comp_price_xchange: "~60€/год",
+    comp_price_pdf24: "Бесплатно (реклама)",
+    comp_reinstall: "Бесплатная переустановка",
+    comp_updates: "Обновления включены",
+    comp_json: "Формы + JSON-экспорт",
+    comp_noads: "Ноль рекламы",
+    comp_n8n: "N8N / автоматизация",
+    comp_merge: "Объединение / разделение",
+    comp_ocr: "OCR",
+    comp_sign: "Цифровые подписи",
+    comp_ctx: "Контекстное меню Windows",
+    comp_ease: "Простота использования",
+    comp_ease_us: "⭐⭐⭐⭐⭐",
+    comp_ease_adobe: "⭐⭐⭐",
+    comp_ease_xchange: "⭐⭐⭐",
+    comp_ease_pdf24: "⭐⭐⭐⭐",
+    pricing_h: "Простые и честные цены",
+    pricing_sub: "Платите один раз. Пользуйтесь вечно. Всё включено. Ноль рекламы — никогда.",
+    price_once: "единовременный платёж",
+    price_annual: "в год",
+    plan1_name: "Соло",
+    plan1_seats: "1 рабочее место",
+    plan2_name: "Команда",
+    plan2_seats: "5 рабочих мест",
+    plan3_name: "Бизнес",
+    plan3_seats: "20 рабочих мест",
+    plan4_name: "Корпоративный",
+    plan4_seats: "Неограниченно",
+    plan_f1: "Все функции включены",
+    plan_f2: "Бесплатная переустановка",
+    plan_f3: "Обновления включены",
+    plan_f4: "Личное использование",
+    plan2_f4: "Малые команды",
+    plan3_f4: "Средний бизнес",
+    plan4_f4: "Неограниченное развёртывание",
+    plan_invoice: "Счёт предоставляется",
+    plan3_activations: "20 одновременных активаций",
+    plan4_activations: "Неограниченные активации",
+    plan_buy: "Купить",
+    popular: "ПОПУЛЯРНЫЙ",
+    refund_title: "Гарантия возврата денег в течение 14 дней",
+    refund_sub: "Не удовлетворены? Свяжитесь с нами в течение 14 дней — полный возврат, без вопросов.",
+    pricing_lemon: "Платежи надёжно обрабатываются через <a href=\"https://lemonsqueezy.com\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--muted)\">Lemon Squeezy</a>. НДС включён там, где применимо.",
+    faq_h: "Часто задаваемые вопросы",
+    faq_sub: "Не нашли ответ? <a href=\"https://github.com/Leteint/pdf-editor/issues\" target=\"_blank\" rel=\"noopener\">Откройте issue на GitHub</a>",
+    faq1_q: "Можно ли переустановить на новый компьютер?",
+    faq1_a: "Да — лицензия привязана к вашей учётной записи, а не к устройству. Вы можете деактивировать и активировать на любом ПК с Windows в любое время без обращения в поддержку.",
+    faq2_q: "Будущие обновления действительно включены?",
+    faq2_a: "Да. Все обновления в рамках купленной основной версии бесплатны. Если выйдет новая мажорная версия по значительно более высокой цене, существующие клиенты получат существенную скидку.",
+    faq3_q: "Работает ли оффлайн?",
+    faq3_a: "PDF Editor — полноценное десктопное приложение с поддержкой офлайн-режима. Проверка лицензии требует интернет при первой активации и периодически (каждые 7 дней). После этого работает без подключения.",
+    faq4_q: "Только для Windows?",
+    faq4_a: "На данный момент да — PDF Editor является нативным приложением для Windows 10/11. Версии для macOS и Linux в дорожной карте. Следите за репозиторием GitHub для уведомлений.",
+    faq5_q: "Как работает интеграция с N8N / автоматизацией?",
+    faq5_a: "При экспорте данных формы PDF Editor сохраняет структурированный .json-файл или может отправить его напрямую на URL вебхука. В N8N, Make или Zapier вы просто слушаете этот вебхук — без кастомного кода.",
+    faq6_q: "Можно ли получить счёт для компании?",
+    faq6_a: "Да — Lemon Squeezy является Merchant of Record и автоматически формирует корректный счёт с НДС для каждой покупки. Его можно скачать из письма с подтверждением покупки.",
+    faq7_q: "Есть ли бесплатный пробный период?",
+    faq7_a: "Пробного периода с ограничением времени нет, но все покупки сопровождаются 14-дневной гарантией возврата денег. Если PDF Editor не подходит вашему процессу — просто напишите нам, и мы вернём деньги без вопросов.",
+    cta_h: "Готовы взять PDF-процессы под контроль?",
+    cta_sub: "Один платёж. Все функции. Без подписки. Без облака. Ваш навсегда.",
+    cta_buy: "Купить PDF Editor — от 45€",
+    cta_support: "Задать вопрос",
+    footer_support: "Поддержка & Issues",
+    footer_buy: "Купить",
+    footer_terms: "Условия использования",
+    footer_privacy: "Конфиденциальность",
+    footer_refund: "Возврат средств",
+    footer_payment: "Платежи через"
+  }
+};
+
+let currentLang = 'en';
+
+function detectLang() {
+  const saved = localStorage.getItem('pdf_editor_lang');
+  if (saved && LANGS[saved]) return saved;
+  const browser = (navigator.language || navigator.userLanguage || 'en').slice(0, 2).toLowerCase();
+  return LANGS[browser] ? browser : 'en';
+}
+
+function setLang(code) {
+  if (!LANGS[code]) return;
+  currentLang = code;
+  localStorage.setItem('pdf_editor_lang', code);
+  document.documentElement.lang = code;
+
+  const dict = LANGS[code];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) {
+      el.innerHTML = dict[key];
+    }
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === code);
+    btn.setAttribute('aria-pressed', btn.dataset.lang === code ? 'true' : 'false');
+  });
+}
+
+// FAQ accordion
+function initFAQ() {
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      // Toggle clicked
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+}
+
+// Lang buttons
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+// Smooth nav link scroll (mobile highlight)
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Init
+initFAQ();
+setLang(detectLang());
+</script>
+</body>
+</html>
